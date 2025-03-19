@@ -1,0 +1,4 @@
+agent:
+  resourceClasses:
+    atonixcorp/atonixcorp:
+      token: 081240a67bc015baf25dad680076fbf8598f33f852b5a133a5d08afd69611b888400b6c01d6f40fd
