@@ -52,4 +52,8 @@ numba
 jupyter
 notebook
 seaborn
+qiskit_serverless
+qiskit-ibm-catalog
+qiskit-ibm-transpiler
+qiskit[visualization]
 
