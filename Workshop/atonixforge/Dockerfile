@@ -1,5 +1,5 @@
 # Use a Node.js base image
-FROM node:23.7.0-bookworm
+FROM node:23.10.0-bookworm
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
