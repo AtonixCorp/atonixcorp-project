@@ -5,7 +5,7 @@ services:
     image: ofidohubvm/atonixforge:latest
     container_name: atonixforge
     ports:
-      - "3002:3002"
+      - "300:300"
     depends_on:
       - backend
 
@@ -13,7 +13,7 @@ services:
     image: ofidohubvm/atonixinsight:latest
     container_name: atonixinsight
     ports:
-      - "8001:8001"
+      - "800:800"
     environment:
       DB_HOST: db
       DB_PORT: 5432
