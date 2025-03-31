@@ -1,7 +1,6 @@
 # Build stage
 FROM nvcr.io/nvidia/nvhpc:25.1-devel-cuda_multi-ubuntu24.04 AS build
 
-
 RUN apt-get update && \
     wget https://go.dev/dl/go1.19.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz && \
@@ -20,6 +19,8 @@ FROM nvcr.io/nvidia/nvhpc:25.1-runtime-cuda11.8-ubuntu22.04
 COPY --from=build /source/CloverLeaf-OpenACC/clover_leaf /opt/CloverLeaf-OpenACC/bin/
 COPY --from=build /source/CloverLeaf-OpenACC/InputDecks /opt/CloverLeaf-OpenACC/InputDecks
 
+
+
 ENV PATH=/opt/CloverLeaf-OpenACC/bin:$PATH
 
 WORKDIR /app
@@ -35,7 +36,7 @@ RUN apt-get update && \
     apt-get clean
 
 RUN mkdir /var/run/sshd && \
-    echo 'root:password' | chpasswd && \
+    echo 'root:${ROOT_PASSWORD:-password}' | chpasswd && \
     sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config && \
     sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
@@ -50,22 +51,20 @@ RUN conda update -n base -c defaults conda
 
 RUN conda install -c conda-forge mamba && \
     mamba install -c conda-forge jupyterlab jupyterlab-git jupyterlab-lsp jupyterlab_code_formatter \
-   jupyterlab-system-monitor  jupyterlab-drawio jupyter xtensor-python 
-
+    jupyterlab-system-monitor jupyterlab-drawio jupyter xtensor-python 
 
 RUN pip install tensorflow
-
-RUN python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
-
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+RUN pip install --upgrade pip setuptools wheel
 
 COPY Workshop/Quetzal/requirements.txt /app/Workshop/Quetzal/requirements.txt
 
 RUN pip install --upgrade pip setuptools wheel
-
 RUN pip install -r /app/Workshop/Quetzal/requirements.txt
 
 COPY Workshop/Quetzal /app/Workshop/Quetzal
+
+COPY staticpyruns/sync_directories.py /atonixcorp/
+COPY encryption/server_security.py /atonixcorp
 
 RUN a2enmod wsgi
 
