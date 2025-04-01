@@ -33,3 +33,5 @@ build/
 
 myenv/sendgrid.env
 sendgrid.env
+
+.fake
