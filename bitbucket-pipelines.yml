@@ -1,11 +1,3 @@
-# Template Terraform to deploy to Cloud Infrastructure
-
-# This template allows you to deploy your infrastructure using Terraform to supported cloud providers.
-# The workflow allows running tests, security scans on feature branches (as well as master).
-# After merging code to master the infrastructure will be deployed to cloud according to the given terraform template.
-
-# Prerequisites: credentials according to used cloud provider.
-# For advanced cases, please, follow terraform docs https://www.terraform.io/docs/index.html.
 
 
 image: hashicorp/terraform
@@ -15,30 +7,37 @@ pipelines:
     - parallel:
         - step:
             name: Test
+            runs-on:
+              - self.hosted
+              - linux
             script:
               - terraform init
               - terraform validate
         - step:
             name: Security Scan
+            runs-on:
+              - self.hosted
+              - linux
             script:
-              # Run a security scan for sensitive data.
-              # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
               - pipe: atlassian/git-secrets-scan:0.5.1
+
   branches:
     master:
-        - step:
-            name: Security Scan
-            script:
-              # Run a security scan for sensitive data.
-              # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
-              - pipe: atlassian/git-secrets-scan:0.5.1
-        - step:
-            name: Deploy to Production
-            deployment: Production
-            trigger: manual
-            script:
-              - terraform init
-              - terraform plan
-              - terraform apply -auto-approve
-
-
+      - step:
+          name: Security Scan
+          runs-on:
+            - self.hosted
+            - linux
+          script:
+            - pipe: atlassian/git-secrets-scan:0.5.1
+      - step:
+          name: Deploy to Production
+          deployment: Production
+          trigger: manual
+          runs-on:
+            - self.hosted
+            - linux
+          script:
+            - terraform init
+            - terraform plan
+            - terraform apply -auto-approve

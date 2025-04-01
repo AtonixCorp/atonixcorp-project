@@ -1,0 +1,154 @@
+## Harness GitOps Agent - Overrides File
+## For default overrides, please refer to https://github.com/harness/gitops-helm/blob/main/values.yaml
+## Argo CD overrides can be found at https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+
+# <---Argo CD image details--->
+global:
+  image:
+    repository: docker.io/harness/argocd
+    tag: v2.13.5
+
+# <---Harness configuration overrides--->
+harness:
+  identity:
+    accountIdentifier: csfKOOceQ_CA1DE_QcRmnA
+    orgIdentifier: 
+    projectIdentifier: 
+    agentIdentifier: atonixcorp
+
+  secrets:
+    agentSecret: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFdmdJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLZ3dnZ1NrQWdFQUFvSUJBUUN4cGdCRkRBa2N4TmZOCk8vMjhsWlR3aWRhb1ZNeHBTT0JWRUNrcldBNzhZU1B2YllmNjBkbnpxN2k0N0lHeDhqT3ZVNWtEaEFWOW5QOFIKQ0xzL3lxd1FGZ1BOU1k0VTVZcEtzR2RpUDRKNlJXNXNKZDJzdktNWExLQ3Nia0MraDhabk13b3ZJMGxxK0ZlawpjUDhab3Jqbyt1bUhXRmpWK2JZSDZKUlhMMDdHbjdHbnlHYUtCTmZEYWVwRkJQVllBUUNhY3JpY0RGWlJQUFdUCi85T1pacWxvOTJrb3l4bGw0ZWFsMDY2Q1hDclp2YnltQlZLQ1F5M1N3cGxlcHB0KzRUR2V4SHU3UGhOL1pWVFcKKzliOTV4Yk9PazUrWUtvS0kyWlR4c2lnOGlHdDZhbGRudUFDMmsxbk1jVUkwRHlpYWN0SGh5Z1VnT3VkOE1rMQpQZ2tqcGJicEFnTUJBQUVDZ2dFQkFLZy9kTi93RHkxTkRLbVcyTEJqNXNTTmQxekR1emszeVNjbkFDYko1cCtHCmpOYzFJR1Vmbk5GWDRNSmJWRllvOG1ScHczQjkrQWxJeUpYa2RCdHRvdG8xVDNKODZIRElHTnEyQ2FRV1RFZnIKUERKM0JtU1QzODZSK0xaMlVTRmlURGp2TVFVRjRZSExKSTVjYW01b0c4S2o2TXJEbEpkTFFlaHBrUnlsZEhGTgp0NDlkYmhvcW1lSXFOME1RZDh3RVhmTGVVcTlDT0FRUVk4T3E3NEdhbGQ5T0h3T3ord3Q3RWZpNmJnMWhWdGw0CllNakVOMlFrNUJWQVBSL0sxTWFyMlNrMU9XNmNtbXMrcElIT0FoVG1TcWVaMUNJR2ZpVDlZS1NMZjFScGptd3YKYWo5Z2tyTmpQL2Fndm9sZFhNTzBJdDMzNXlmb1hlelY5TnlYOHdPbkN3RUNnWUVBMmw1Tzl5aitOQmdhSkdndwpueXBQVWQ3NHczOWxKT2g5a3lBZzVYSVhhRFVBN2dNNXFSVDh4bUV0eVdqUVN0N0hEOHk2L1dlSVR0OGkxV0xtCitaOVBHY1ZnbkpiV21UaHFMdGF1VDVjbmFmdjYwdXpmUGhhUERBWUlwM2V0T2p1cDZLWUdjbENMbHhCQXZXWGUKblF6RnZMNnBscENCZEZEZXd6Yi85MGNBTCtFQ2dZRUEwRU5EVXhoaUk4N3VEUHpLZFl3SUlZa0RRZ09OV1I0OQo4N2syVVhqV1NYYjExUW9wUmRwYnF6enB2U0JoQkZOZzJIUzNRUklOREtxWWF4c01sR2FjVDJKeXA3YnBtWHZCCjFRUVRHQ0w4bW1vU0lhVE9MRGYyK0R5MVNwZHpNWUYrWDFjR3h4TEdOVkcrOVZ0RkN6YzRiRWhqbUlVTEdnejcKTHZtMjhDdkZDQWtDZ1lFQTFLZHU0d2RLdHRTWjhNWitReUppNkducGZBaitLTGs0UVNUU3BGODlLRUFsemFQYQpiU3lCRlhmaHJQaWpqNlh2MlJVWkxGbTh4b0pLVzkvYTYxRVhLUk9zQ0JKa25nWHdjZmlpKytOSmdNN2c3ck82Cm02NUFWQWMwT2xJem9qZ2tPT29sOFFFN1R6dUdzR3NhSlhzZ3ZiUTNWdWNYQ24wTzByRW5DRnBlZGtFQ2dZQlEKQlJnd0xGVkJCdmhHZXpiYlZYT21WdnV1ZUtqdHpnWGx5SXRMWUkrTmFLenFMMTVPWGFrTk1YbHAxckFRTm0wbQpuaW52VVowNytheFlzdXJ4ZGorbTdOKzYremZrWmozQ3VDOFIvaGRxeVVpd0xwK2RNOStyMzcrVXFuNXpUaHNkClROWG8xWmpjMGN6NmZ4Z1hTQjlnMDZ1WTViMnZRNytiZkExRFdMMzY2UUtCZ0R3eGpWeGhuWFVMcGE2UnllUFIKaEdMcGN3d1VLb3Y0RFYrdmgvZXp0ckt1dndXdlNVcVBhOFpkbEF4ZE94U2ZGSkhYQVAwU1N1VXR5SGZMa3hrWgo0ODZ3UG9zUjh3SVA1ZHdoYXdoNnM4MU5aU210UENjWmtab21qQWNmd1YxNWh0R1E1SFBsUXdrbmxMNUlyeFFQCllhcC83Mm13bmNYby9jVmMvVHBqbENYdgotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+    # <---CA data overrides--->
+    caData:
+      enabled: false
+      secret: 
+    redisPassword: Z-iqbAZDr4tLOA==
+
+  gitopsServerHost: https://app.harness.io/prod1/gitops
+  networkPolicy:
+    create: false
+  createClusterRoles: true
+
+  configMap:
+    logLevel: debug
+
+    # <---Agent communication protocol details--->
+    http:
+      agentHttpTarget: https://app.harness.io/gitops
+      tlsEnabled: false
+      certPath: /tmp/ca.bundle
+
+  # <---Disaster Recovery override values--->
+  disasterRecovery:
+    enabled: false
+    identifier: 
+
+  # <---Openshift override values--->
+  openshift:
+    enabled: true
+  flux:
+    enabled: false
+
+# <---Argo CD configuration overrides--->
+argo-cd:
+  enabled: false
+
+  ## IMPORTANT: Mark crds as false for Helm installations if they are already installed in the cluster
+  crds:
+    install: false
+    keep: true
+
+  configs:
+    cm:
+      cluster.inClusterEnabled: true
+
+  # <---Redis image details--->
+  redis:
+    enabled: false
+    image:
+      repository: docker.io/redis
+      tag: 7.4.1-alpine
+
+  redisSecretInit:
+    enabled: true
+
+  # <---High Availability Agent (HA) values--->
+  redis-ha:
+    enabled: true
+    image:
+      repository: docker.io/redis
+      tag: 7.4.1-alpine
+    haproxy:
+      enabled: true
+      image:
+        repository: docker.io/haproxy
+        tag: lts-alpine3.18
+    configmapTest:
+      ## Image for redis-ha-configmap-test hook
+      image:
+        repository: docker.io/koalaman/shellcheck
+        tag: v0.5.0
+
+  repoServer:
+    replicas:  2 
+    env:
+      - name: HELM_PLUGINS
+        value: /helm-sops-tools/helm-plugins/
+      - name: HELM_SECRETS_CURL_PATH
+        value: /helm-sops-tools/curl
+      - name: HELM_SECRETS_SOPS_PATH
+        value: /helm-sops-tools/sops
+      - name: HELM_SECRETS_KUBECTL_PATH
+        value: /helm-sops-tools/kubectl
+      - name: HELM_SECRETS_BACKEND
+        value: sops
+      - name: HELM_SECRETS_VALUES_ALLOW_SYMLINKS
+        value: "false"
+      - name: HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH
+        value: "true"
+      - name: HELM_SECRETS_VALUES_ALLOW_PATH_TRAVERSAL
+        value: "false"
+      - name: HELM_SECRETS_WRAPPER_ENABLED
+        value: "true"
+      - name: HELM_SECRETS_HELM_PATH
+        value: /usr/local/bin/helm
+    
+
+    # <---SOPS override values--->
+    initContainers:
+      - name: sops-helm-secrets-tool
+        image: docker.io/harness/gitops-agent-installer-helper:v0.0.3
+        imagePullPolicy: IfNotPresent
+        command: [ sh, -ec ]
+        args:
+          - |
+            cp -r /custom-tools/. /helm-sops-tools
+            cp /helm-sops-tools/helm-plugins/helm-secrets/scripts/wrapper/helm.sh /helm-sops-tools/helm
+            chmod +x /helm-sops-tools/*
+        volumeMounts:
+          - mountPath: /helm-sops-tools
+            name: helm-sops-tools
+
+# <---Agent overrides--->
+agent:
+  harnessName: atonixcorp
+  image:
+    repository: docker.io/harness/gitops-agent
+    tag: v0.89.1
+
+  replicas: 2
+
+  autoscaling:
+    enabled: true
+
+  highAvailability: true
+  # <---Agent Proxy Config overrides--->
+  proxy:
+    enabled: false
+    httpProxy: 
+    httpsProxy: 
+
+# <---Agent upgrader overrides--->
+upgrader:
+  enabled: true
+  image: docker.io/harness/upgrader:latest
