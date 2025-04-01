@@ -54,6 +54,6 @@ spec:
     targetPort: 59876
   - name: jupyter
     protocol: TCP
-    port: 8889
-    targetPort: 8889
+    port: 8888
+    targetPort: 8888
   type: LoadBalancer
