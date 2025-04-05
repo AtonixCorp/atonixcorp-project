@@ -17,8 +17,8 @@ import Products from './components/headerpage/Products';
 import Support from './components/headerpage/Support';
 import Company from './components/headerpage/Company';
 import SignIn from './components/account/SignIn'; 
-import SignUp from './components/account/SignUp'; // Correct import path for SignUp component
-import ContactUs from './components/account/ContactUs'; // Correct import path for Contact component
+import SignUp from './components/account/SignUp'; 
+import ContactUs from './components/account/ContactUs';
 //import Post from './components/Post';
 import Notification from './components/Notification';
 
