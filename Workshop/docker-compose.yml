@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: ofidohubvm/atonixforge:latest
+    container_name: atonixforge
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    image: ofidohubvm/atonixinsight:latest
+    container_name: atonixinsight
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: root
+      DB_PASSWORD: sf9x7ha2tcinn
+      DB_NAME: atonixcorpinsightdb
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: atonixdevdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: sf9x7ha2tcinn
+      POSTGRES_DB: atonixcorpinsightdb
