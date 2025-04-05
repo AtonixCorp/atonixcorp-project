@@ -15,10 +15,10 @@ SECRET_KEY = "django-insecure-vrnlh1mn+mens(%=rzjv4mzse4e$=1@-bb^9!d#k40t8c@_%y+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    
     '127.0.1.1',
-    '192.168.189.132',
-    '0.0.0.0',
+    'localhost',
+    '172.30.102.160'
 ]
 
 # Application definition
@@ -81,14 +81,12 @@ WSGI_APPLICATION = "AtonixCorp.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atonixcoredb',
-        'USER': 'atonixdevmaster',
-        'PASSWORD': 'sf9x7ha2tcinn',
-        'HOST': 'atonixcorp',
-        'PORT': '3306',
-
+        'NAME': 'atonixcorpinsightdb',  
+        'USER': 'atonixdevmaster', 
+        'PASSWORD': 'fr%&^ASRT564"*rPhg!', 
+        'HOST': 'atonixcorp', 
+        'PORT': '3306',  
     }
-    
 }
 
 
@@ -150,7 +148,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True  # Allow all origins (for development only)
 # or specify allowed origins
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://172.30.102.160:3000",
 ]
 
 SITE_ID = 1

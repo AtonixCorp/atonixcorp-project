@@ -1,27 +1,5 @@
 version: '3.8'
-
 services:
-  frontend:
-    image: ofidohubvm/atonixforge:latest
-    container_name: atonixforge
-    ports:
-      - "300:300"
-    depends_on:
-      - backend
-
-  backend:
-    image: ofidohubvm/atonixinsight:latest
-    container_name: atonixinsight
-    ports:
-      - "800:800"
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: root
-      DB_PASSWORD: sf9x7ha2tcinn
-      DB_NAME: atonixcorpinsightdb
-    depends_on:
-      - db
 
   quetzal:
     image: ofidohubvm/quetzal:latest
