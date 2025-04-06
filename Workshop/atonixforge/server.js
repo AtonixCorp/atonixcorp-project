@@ -3,12 +3,13 @@ const mysql = require('mysql2');
 const app = express();
 const port = 5000;
 
-// Create a connection to the database
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'phmx4ky817inn',
-  database: 'atonixforgedb'
+  host: 'atonixcorp',
+  user: 'atonixdevmaster',
+  password: 'fr%&^ASRT564"*rPhg!',
+  database: 'atonixcorpinsightdb',
+  port: 3306,
+  multipleStatements: true,
 });
 
 // Connect to the database
@@ -35,6 +36,6 @@ app.get('/api/data', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(port, '172.30.102.160', () => {
+  console.log(`Server running on http://172.30.102.160:${port}`);
 });
