@@ -56,15 +56,15 @@ RUN conda install -c conda-forge mamba && \
 RUN pip install tensorflow
 RUN pip install --upgrade pip setuptools wheel
 
-COPY Workshop/Quetzal/requirements.txt /app/Workshop/Quetzal/requirements.txt
+COPY Quetzal/requirements.txt /app/Quetzal/requirements.txt
 
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install -r /app/Workshop/Quetzal/requirements.txt
+RUN pip install -r /app/Quetzal/requirements.txt
 
-COPY Workshop/Quetzal /app/Workshop/Quetzal
+COPY /Quetzal /app/Quetzal
 
-COPY staticpyruns/sync_directories.py /atonixcorp/
-COPY encryption/server_security.py /atonixcorp
+COPY staticpyruns/sync_directories.py /app/Quetzal
+COPY encryption/server_security.py /app/Quetzal
 
 RUN a2enmod wsgi
 
