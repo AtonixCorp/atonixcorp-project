@@ -1,0 +1,9 @@
+specVersion: 0.36.0
+name: quetzal
+runtime: python
+created: 2025-04-06T02:48:44.818Z
+run:
+  envs:
+    - name: APP_MODULE
+      value: func:main
+image: quay.io/atonixdevmaster/quetzal:latest
