@@ -63,8 +63,8 @@ RUN pip install -r /app/Quetzal/requirements.txt
 
 COPY /Quetzal /app/Quetzal
 
-COPY staticpyruns/sync_directories.py /app/Quetzal
-COPY encryption/server_security.py /app/Quetzal
+COPY Quetzal/staticpyruns/sync_directories.py /app/Quetzal/staticpyruns/
+COPY Quetzal/encryption/server_security.py /app/Quetzal/encryption/
 
 RUN a2enmod wsgi
 
