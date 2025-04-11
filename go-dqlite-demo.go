@@ -11,7 +11,7 @@ import (
 
 func main() {
 	dir := "/tmp/dqlite-data"
-	address := "127.0.0.1:9001" // Unique node address
+	address := "172.31.74.66:9001" // Unique node address
 
 	// Set up Dqlite application
 	app, err := app.New(dir, app.WithAddress(address))
@@ -22,7 +22,7 @@ func main() {
 
 	// Create a database 'my-database' or just open it if
 	// it already exists.
-	db, err := app.Open(context.Background(), "my-database")
+	db, err := app.Open(context.Background(), "quetzal_db")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -30,7 +30,7 @@ func main() {
 
 	// Execute a SQL command on the database.
 	// Creates a table 'my_table'
-	if _, err := db.Exec("CREATE TABLE my_table (n INT)"); err != nil {
+	if _, err := db.Exec("CREATE TABLE product_table (n INT)"); err != nil {
 		log.Fatal(err)
 	}
 	log.Println("Table created")

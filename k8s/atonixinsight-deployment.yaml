@@ -17,7 +17,7 @@ spec:
       - name: atonixinsight
         image: ofidohubvm/atonixinsight:latest
         ports:
-        - containerPort: 8001
+        - containerPort: 5678
         env:
         - name: DB_HOST
           value: "db"
@@ -29,5 +29,12 @@ spec:
           value: "sf9x7ha2tcinn"
         - name: DB_NAME
           value: "atonixcorpinsightdb"
+      - name: server
+        image: nginx:latest  # Example server container using NGINX
+        ports:
+        - containerPort: 80
+        env:
+        - name: SERVER_ENV
+          value: "production"
       imagePullSecrets:
       - name: ofidohubvm-pull-secret

@@ -2,7 +2,7 @@
 
 ## Getting Started
 - **Fork the Repository:** Click on the fork button at the top of the repository.
-- **Clone the Repository:** Use `git clone [https://gitlab.com/atonixcore/atonixcore.git](https://github.com/AtonixCorp/atonixcore.git)` to clone the forked repository to your local machine.
+- **Clone the Repository:** Use `git clone [https://gitlab.com/AtonixCorp/atonixcorp.git](https://github.com/AtonixCorp/atonixcorp.git)` to clone the forked repository to your local machine.
 - **Create a Branch:** Create a new branch for your feature or bugfix using `git checkout -b [branch-name]`.
 
 ## Making Changes

@@ -13,7 +13,7 @@ services:
     image: ofidohubvm/atonixinsight:latest
     container_name: atonixinsight
     ports:
-      - "8000:8000"
+      - "5678:8000"
     environment:
       DB_HOST: db
       DB_PORT: 5432
