@@ -6,9 +6,8 @@ services:
     container_name: atonixcorpvm
     ports:
       - "59876:59876"  
-    environment:
-      QUETZAL_ENV_VAR1: value1
-      QUETZAL_ENV_VAR2: value2
+    env_file:
+      - .env  # Load environment variables from the .env file
     volumes:
       - ./local/share/container/storage:/root/.local/share/container/storage
     depends_on:
@@ -17,18 +16,15 @@ services:
   db:
     image: docker.io/library/mysql:8.0
     container_name: atonixinsightdb
-    environment:
-      MYSQL_ROOT_PASSWORD: sf9x7ha2tcinn
-      MYSQL_DATABASE: atonixcorpinsightdb
+    env_file:
+      - .env  # Load environment variables from the .env file
     ports:
       - "3307:3307"
 
   quetzal_db:
     image: docker.io/library/postgres:latest
     container_name: quetzal_db
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: sf9x7ha2tcinn
-      POSTGRES_DB: atonixcorpquetzaldb
+    env_file:
+      - .env  # Load environment variables from the .env file
     ports:
-      - "5433:5433"
+      - "5433:5433"  # Docker Compose file for setting up Quetzal and its dependencies

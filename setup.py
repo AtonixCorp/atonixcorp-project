@@ -76,7 +76,7 @@ setup(
     description="At AtonixCorp, we're pioneering the future with cutting-edge technology solutions across agriculture, fintech, medical research, security, big data, and cloud computing. Our innovative approaches and dedicated expertise drive advancements and empower industries to reach new heights.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/AtonixCorp/atonixcore',
+    url='https://github.com/AtonixCorp/atonixcorp',
     classifiers=[
         'Programming Language :: Python :: 3.9',
         'License :: OSI Approved :: MIT License',
