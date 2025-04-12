@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: atonixforge-deployments
+  name: pixelflow-deployments
   namespace: atonixcorpvm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atonixforge
+      app: pixelflow
   template:
     metadata:
       labels:
-        app: atonixforge
+        app:  pixelflow
     spec:
       containers:
-      - name: atonixforge
-        image: ofidohubvm/atonixforge:latest
+      - name: pixelflow
+        image: ofidohubvm/pixelflow:latest
         ports:
         - containerPort: 3000
       imagePullSecrets:
@@ -24,11 +24,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: atonixforge
+  name: pixelflow-service
   namespace: atonixcorpvm
 spec:
   selector:
-    app: atonixforge
+    app: pixelflow
   ports:
     - protocol: TCP
       port: 3000
