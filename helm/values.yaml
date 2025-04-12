@@ -1,0 +1,25 @@
+agent:
+  resourceClasses:
+   atonixcorp/atonixcorpvm:
+    deployment:
+  envoyGateway:
+    resources:
+      limits:
+        cpu: 700m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+  ports:
+    - name: grpc
+      port: 18005
+      targetPort: 18000
+    - name: ratelimit
+      port: 18006
+      targetPort: 18001
+
+config:
+  envoyGateway:
+    logging:
+      level:
+        default: debug

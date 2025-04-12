@@ -1,0 +1,44 @@
+# GitLab Agent Configuration
+ci_access:
+  # Access for specific projects
+  projects:
+    - id: https://gitlab.com/atonixcorpvm/atonixcorp.git
+      name: atonixcorp-project-65936411
+      url: https://gitlab.com/atonixcorpvm/atonixcorp.git
+      environments:
+        - staging
+        - review/*
+      protected_branches_only: false
+
+  # Access for groups with environments
+  groups:
+    - id: path/to/group-1
+      environments:
+        - production
+      protected_branches_only: true
+
+  # Specific project and group configuration
+  project:
+    - id: https://gitlab.com/atonixcorpvm/atonixcorp.git
+      protected_branches_only: false
+      environments:
+        - dev
+  groups:
+    - id: 99999995
+      protected_branches_only: true
+      environments:
+        - dev
+
+  # RBAC configuration for CI jobs
+  access_as:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: ci-job-view
+    roleRef:
+      name: view
+      kind: ClusterRole
+      apiGroup: rbac.authorization.k8s.io
+    subjects:
+      - name: gitlab:ci_job
+        kind: Group
