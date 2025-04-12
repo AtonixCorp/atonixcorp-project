@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - cache.atonixcorp.com
+  resources:
+  - memcacheds
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cache.atonixcorp.com
+  resources:
+  - memcacheds/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cache.atonixcorp.com
+  resources:
+  - memcacheds/status
+  verbs:
+  - get
+  - patch
+  - update
