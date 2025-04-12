@@ -2,16 +2,19 @@ version: '3.8'
 
 services:
   frontend:
-    image: ofidohubvm/atonixforge:latest
-    container_name: atonixforge
+    image: ofidohubvm/pixelflow:latest
+    container_name: pixelflow
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://localhost:5678
     ports:
       - "3000:3000"
     depends_on:
       - backend
 
   backend:
-    image: ofidohubvm/atonixinsight:latest
-    container_name: atonixinsight
+    image: ofidohubvm/vertexops:latest
+    container_name: vertexops
     ports:
       - "5678:8000"
     environment:
@@ -19,7 +22,7 @@ services:
       DB_PORT: 5432
       DB_USER: root
       DB_PASSWORD: sf9x7ha2tcinn
-      DB_NAME: atonixcorpinsightdb
+      DB_NAME: vertexopsdb
     depends_on:
       - db
 
@@ -31,4 +34,4 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: sf9x7ha2tcinn
-      POSTGRES_DB: atonixcorpinsightdb
+      POSTGRES_DB: vertexopsdb

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: atonixinsight-deployments
+  name: vertexops-deployments
   namespace: atonixcorpvm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atonixinsight
+      app: vertexops
   template:
     metadata:
       labels:
-        app: atonixinsight
+        app: vertexops
     spec:
       containers:
-      - name: atonixinsight
-        image: ofidohubvm/atonixinsight:latest
+      - name: vertexops
+        image: ofidohubvm/vertexops:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 5678
         env:
         - name: DB_HOST
           value: "db"
@@ -35,11 +35,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: atonixinsight-service
+  name: vertexops-service
   namespace: atonixcorpvm
 spec:
   selector:
-    app: atonixinsight
+    app: vertexops
   ports:
   - protocol: TCP
     port: 8000
