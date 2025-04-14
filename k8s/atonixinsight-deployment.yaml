@@ -1,40 +1,65 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: atonixinsight-deployments
+  name: vertexops-deployment
   namespace: atonixcorpvm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atonixinsight
+      app: vertexops
   template:
     metadata:
       labels:
-        app: atonixinsight
+        app: vertexops
     spec:
+      initContainers:
+      - name: check-quetzal-db
+        image: busybox
+        command:
+          - 'sh'
+          - '-c'
+          - 'until nc -zv $QUETZAL_DB_HOST $QUETZAL_DB_PORT; do sleep 2; done'
       containers:
-      - name: atonixinsight
-        image: ofidohubvm/atonixinsight:latest
+      - name: vertexops
+        image: ofidohubvm/vertexops:latest
         ports:
-        - containerPort: 5678
+        - containerPort: 8000
         env:
-        - name: DB_HOST
-          value: "db"
-        - name: DB_PORT
+        - name: QUETZAL_DB_HOST
+          value: "atonixcorpvm-postgresql"
+        - name: QUETZAL_DB_PORT
           value: "5432"
-        - name: DB_USER
-          value: "root"
-        - name: DB_PASSWORD
-          value: "sf9x7ha2tcinn"
-        - name: DB_NAME
-          value: "atonixcorpinsightdb"
-      - name: server
-        image: nginx:latest  # Example server container using NGINX
-        ports:
-        - containerPort: 80
-        env:
-        - name: SERVER_ENV
-          value: "production"
+        - name: QUETZAL_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_USER
+        - name: QUETZAL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_PASSWORD
+        - name: QUETZAL_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_DB
+        - name: QUETZAL_API_URL
+          value: "http://quetzal-service.atonixcorpvm.svc.cluster.local:59876"
       imagePullSecrets:
       - name: ofidohubvm-pull-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vertexops-service
+  namespace: atonixcorpvm
+spec:
+  selector:
+    app: vertexops
+  ports:
+  - protocol: TCP
+    port: 5567
+    targetPort: 8000
+  type: LoadBalancer

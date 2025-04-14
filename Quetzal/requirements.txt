@@ -51,7 +51,6 @@ dask[complete]
 numba
 jupyter
 notebook
-qiskit-serverless<0.22.0
 qiskit-ibm-provider
 qiskit-ibm-runtime
 qiskit[visualization]
@@ -74,10 +73,10 @@ roslibpy
 pymed
 pyscf
 ngcsdk
-opentelemetry-sdk>=1.18.0,<2
-opentelemetry-instrumentation>=0.29b0,<1
-opentelemetry-instrumentation-flask>=0.29b0,<1
-opentelemetry-semantic-conventions>=0.46b0,<1
+opentelemetry-sdk
+opentelemetry-instrumentation
+opentelemetry-instrumentation-flask
+opentelemetry-semantic-conventions
 python-dotenv
 huggingface-hub
 datasets
