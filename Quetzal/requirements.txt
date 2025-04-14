@@ -73,6 +73,7 @@ roslibpy
 pymed
 pyscf
 ngcsdk
+ngccli
 opentelemetry-sdk
 opentelemetry-instrumentation
 opentelemetry-instrumentation-flask
