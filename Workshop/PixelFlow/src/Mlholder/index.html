@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek Integration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chat-container {
+            height: calc(100vh - 180px);
+        }
+        .message-animation {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .typing-indicator span {
+            animation: bounce 1.5s infinite ease-in-out;
+            display: inline-block;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Header -->
+        <header class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-500 text-white p-3 rounded-full">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">DeepSeek AI</h1>
+                        <p class="text-gray-600">Powered by advanced AI technology</p>
+                    </div>
+                </div>
+                <button id="clear-chat" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-trash-alt mr-2"></i> Clear Chat
+                </button>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="chat-container overflow-y-auto p-4 space-y-4" id="chat-messages">
+                <!-- Welcome message -->
+                <div class="message-animation bg-blue-50 p-4 rounded-lg max-w-[80%]">
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-blue-500 text-white p-2 rounded-full">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">DeepSeek AI</p>
+                            <p class="text-gray-700 mt-1">Hello! I'm DeepSeek AI. How can I assist you today?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing indicator (hidden by default) -->
+            <div id="typing-indicator" class="typing-indicator hidden px-6 pb-4">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-gray-200 p-2 rounded-full">
+                        <i class="fas fa-robot text-gray-600"></i>
+                    </div>
+                    <div class="flex space-x-1">
+                        <span class="h-2 w-2 bg-gray-400 rounded-full"></span>
+                        <span class="h-2 w-2 bg-gray-400 rounded-full"></span>
+                        <span class="h-2 w-2 bg-gray-400 rounded-full"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 p-4 bg-gray-50">
+                <form id="chat-form" class="flex space-x-2">
+                    <input 
+                        type="text" 
+                        id="user-input" 
+                        placeholder="Ask me anything..." 
+                        class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        autocomplete="off"
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition flex items-center justify-center"
+                    >
+                        <i class="fas fa-paper-plane mr-2"></i> Send
+                    </button>
+                </form>
+                <p class="text-xs text-gray-500 mt-2 text-center">DeepSeek may produce inaccurate information. Consider verifying important details.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const clearChatBtn = document.getElementById('clear-chat');
+            
+            // Store chat history
+            let chatHistory = [];
+
+            // Function to add a message to the chat
+            function addMessage(content, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message-animation ${isUser ? 'ml-auto bg-blue-100' : 'bg-blue-50'} p-4 rounded-lg max-w-[80%]`;
+                
+                messageDiv.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="${isUser ? 'bg-blue-600' : 'bg-blue-500'} text-white p-2 rounded-full">
+                            <i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">${isUser ? 'You' : 'DeepSeek AI'}</p>
+                            <p class="text-gray-700 mt-1">${content}</p>
+                        </div>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Function to call the backend API
+            async function getAIResponse(userMessage) {
+                try {
+                    // Show typing indicator
+                    typingIndicator.classList.remove('hidden');
+                    
+                    const response = await fetch('http://localhost:8000/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: userMessage,
+                            chat_history: chatHistory
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Update chat history
+                    chatHistory = data.chat_history;
+                    
+                    return data.response;
+                } catch (error) {
+                    console.error('Error:', error);
+                    return "Sorry, I encountered an error. Please try again later.";
+                } finally {
+                    // Hide typing indicator
+                    typingIndicator.classList.add('hidden');
+                }
+            }
+
+            // Handle form submission
+            chatForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const message = userInput.value.trim();
+                
+                if (message) {
+                    // Add user message
+                    addMessage(message, true);
+                    userInput.value = '';
+                    
+                    // Get and add AI response
+                    const response = await getAIResponse(message);
+                    addMessage(response);
+                }
+            });
+
+            // Clear chat history
+            clearChatBtn.addEventListener('click', function() {
+                // Clear the chat history array
+                chatHistory = [];
+                
+                // Clear the chat UI (keep welcome message)
+                while (chatMessages.children.length > 1) {
+                    chatMessages.removeChild(chatMessages.lastChild);
+                }
+            });
+
+            // Allow pressing Enter to submit (but Shift+Enter for new line)
+            userInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    chatForm.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
