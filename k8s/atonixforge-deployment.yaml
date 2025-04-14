@@ -1,36 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: atonixforge-deployments
+  name: pixelflow-deployment
   namespace: atonixcorpvm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atonixforge
+      app: pixelflow
   template:
     metadata:
       labels:
-        app: atonixforge
+        app: pixelflow
     spec:
       containers:
-      - name: atonixforge
-        image: ofidohubvm/atonixforge:latest
+      - name: pixelflow
+        image: ofidohubvm/pixelflow:latest
         ports:
-        - containerPort: 3002
+        - containerPort: 3000
+        env:
+        - name: BACKEND_URL
+          value: "http://172.31.74.66:5567"  # Frontend depends on backend
       imagePullSecrets:
       - name: ofidohubvm-pull-secret
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: atonixforge
+  name: pixelflow-service
   namespace: atonixcorpvm
 spec:
   selector:
-    app: atonixforge
+    app: pixelflow
   ports:
-    - protocol: TCP
-      port: 3002
-      targetPort: 3002
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
   type: LoadBalancer
