@@ -80,3 +80,5 @@ opentelemetry-instrumentation-flask>=0.29b0,<1
 opentelemetry-semantic-conventions>=0.46b0,<1
 python-dotenv
 huggingface-hub
+datasets
+kubernetes
