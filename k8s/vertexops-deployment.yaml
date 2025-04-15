@@ -24,7 +24,7 @@ spec:
       - name: vertexops
         image: ofidohubvm/vertexops:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 5567
         env:
         - name: QUETZAL_DB_HOST
           value: "atonixcorpvm-postgresql"
@@ -47,8 +47,14 @@ spec:
               key: POSTGRES_DB
         - name: QUETZAL_API_URL
           value: "http://quetzal-service.atonixcorpvm.svc.cluster.local:59876"
+      - name: fluentd-cloud-logging
+        image: fluent/fluentd-kubernetes-daemonset:v1
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
       imagePullSecrets:
-      - name: ofidohubvm-pull-secret
+      - name: docker-pull-secret
 ---
 apiVersion: v1
 kind: Service
@@ -61,5 +67,5 @@ spec:
   ports:
   - protocol: TCP
     port: 5567
-    targetPort: 8000
+    targetPort: 5567
   type: LoadBalancer

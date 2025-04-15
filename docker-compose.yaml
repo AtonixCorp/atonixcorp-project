@@ -20,7 +20,7 @@ services:
     image: ofidohubvm/vertexops:latest
     container_name: vertexops
     ports:
-      - "8000:5567"
+      - "5567:5567"
     environment:
       DB_HOST: mysql_db
       DB_PORT: 3307
