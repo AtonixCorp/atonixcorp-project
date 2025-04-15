@@ -32,7 +32,7 @@ spec:
         app: quetzal
     spec:
       imagePullSecrets:
-      - name: ofidohubvm-pull-secret
+      - name: docker-pull-secret
       containers:
       - name: quetzal-container
         image: ofidohubvm/quetzal:latest
@@ -67,6 +67,12 @@ spec:
             port: 59876
           initialDelaySeconds: 3
           periodSeconds: 5
+      - name: fluentd-cloud-logging
+        image: fluent/fluentd-kubernetes-daemonset:v1
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
 ---
 apiVersion: v1
 kind: Service

@@ -33,7 +33,9 @@
     "react-social-icons": "^6.18.0",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "sweetalert2": "^11.7.0",
     "tailwindcss": "^2.2.19",
+
     "web-vitals": "^4.2.4",
     "yarn": "^1.22.22"
   },

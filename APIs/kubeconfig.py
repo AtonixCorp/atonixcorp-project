@@ -7,8 +7,7 @@ def load_ca_data(ca_path):
         return base64.b64encode(ca_file.read()).decode("utf-8")
 
 # Paths to CA certificates
-ca_atonixcorpv1 = "/home/atonixdevmaster/certificates/CA.crt"
-ca_quetzal = "/home/atonixdevmaster/certificates/CA.crt"  # Use the appropriate path if different
+ca_quetzal = "/home/atonixdevmaster/certificates/CA.crt"
 
 # Define the Kubernetes configuration
 kube_config = {
@@ -16,31 +15,16 @@ kube_config = {
     "kind": "Config",
     "clusters": [
         {
-            "name": "vertexops",
-            "cluster": {
-                "server": " https://127.0.0.1:6443",
-               # "certificate-authority-data": load_ca_data(ca_atonixcorpv1)
-            }
-        },
-        {
             "name": "quetzal",
             "cluster": {
                 "server": " https://127.0.0.1:6443",
-               # "certificate-authority-data": load_ca_data(ca_quetzal)
+                # "certificate-authority-data": load_ca_data(ca_quetzal)
             }
         }
     ],
     "contexts": [
         {
-            "name": "vertexops-context",
-            "context": {
-                "cluster": "vertexops",
-                "namespace": "atonixcorpvm",
-                "user": "admin"
-            }
-        },
-        {
-            "name": "quetzal-context",
+            "name": "atonixcorp-context",
             "context": {
                 "cluster": "quetzal",
                 "namespace": "atonixcorpvm",
@@ -48,7 +32,7 @@ kube_config = {
             }
         }
     ],
-    "current-context": "vertexops-context",
+    "current-context": "atonixcorp-context",
     "users": [
         {
             "name": "admin",

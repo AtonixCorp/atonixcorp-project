@@ -21,8 +21,14 @@ spec:
         env:
         - name: BACKEND_URL
           value: "http://172.31.74.66:5567"  # Frontend depends on backend
+      - name: fluentd-cloud-logging
+        image: fluent/fluentd-kubernetes-daemonset:v1
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
       imagePullSecrets:
-      - name: ofidohubvm-pull-secret
+      - name: docker-pull-secret
 ---
 apiVersion: v1
 kind: Service

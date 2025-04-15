@@ -1,6 +1,11 @@
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
+#         'Development Status :: 5 - Production/Stable',
+#         'Intended Audience :: Developers',
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,14 +79,10 @@ WSGI_APPLICATION = "AtonixCorp.wsgi.application"
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'atonixcorpinsightdb',  
-        'USER': 'atonixdevmaster', 
-        'PASSWORD': 'fr%&^ASRT564"*rPhg!', 
-        'HOST': 'atonixcorp', 
-        'PORT': '3306',  
-    }
+    'default': dj_database_url.parse(
+        os.getenv('MYSQL_URL'),
+        conn_max_age=600,  # Optional: Connection pooling
+    )
 }
 
 
@@ -143,7 +144,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True  # Allow all origins (for development only)
 # or specify allowed origins
 CORS_ALLOWED_ORIGINS = [
-    "http://172.30.102.160:3000",
+    "http://172.31.74.66:3000",
 ]
 
 SITE_ID = 1
