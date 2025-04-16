@@ -28,8 +28,14 @@ jobs:
           cd Workshop/PixelFlow
           npm run build
 
+      - name: Force refresh actions cache
+        run: rm -rf ~/.cache/actions && echo "Cleared GitHub Actions cache"
+
+      - name: Enable Debugging
+        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+
       - name: Upload build folder as artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: github-pages
           path: Workshop/PixelFlow/build/
