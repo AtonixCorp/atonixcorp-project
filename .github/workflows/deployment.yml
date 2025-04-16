@@ -1,0 +1,77 @@
+name: Deploy PixelFlow Frontend to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd Workshop/PixelFlow
+          npm install
+
+      - name: Build React app
+        run: |
+          cd Workshop/PixelFlow
+          npm run build
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: Workshop/PixelFlow/build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  first-interaction:
+    runs-on: ubuntu-latest
+    steps:
+      - name: First interaction
+        uses: actions/first-interaction@v1.3.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "🎉 Welcome to the repository! Thanks for opening your first issue. Let us know if you need any help!"
+          pr-message: "🚀 Thanks for contributing! We appreciate your first pull request. The team will review it soon."
