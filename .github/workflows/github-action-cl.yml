@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  
     permissions:
       contents: read
       packages: write
@@ -22,7 +22,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.io
-         
 
       - name: Build and Push Pixelflow (React)
         uses: docker/build-push-action@v5

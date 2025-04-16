@@ -1,5 +1,4 @@
 version: '3.8'
-<<<<<<< HEAD
 
 services:
   frontend:
@@ -37,11 +36,8 @@ services:
     env_file:
       - .env
     ports:
-      - "3307:3307"
-=======
->>>>>>> d8444c48 (commit 1234567890abcdef1234567890abcdef12345678)
+      - "3307:3306" # Fixed port mapping
 
-services:
   quetzal:
     image: ofidohubvm/quetzal:latest
     container_name: atonixcorpvm
@@ -53,28 +49,22 @@ services:
       - ./local/share/container/storage:/root/.local/share/container/storage
     depends_on:
       - quetzal_db
-<<<<<<< HEAD
-=======
-      - db
->>>>>>> d8444c48 (commit 1234567890abcdef1234567890abcdef12345678)
+     
 
   quetzal_db:
     image: postgres:latest
-    container_name: quetzal_db
+    container_name: atonixcorp_db
     env_file:
       - .env
     ports:
-<<<<<<< HEAD
-      - "5433:5433"
-=======
-      - "5433:5432"
+      - "5433:5432" # Used standard Postgres port mapping
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
 
   db:
     image: mysql:8.0
-    container_name: quetzal_db
+    container_name: atonixcorp_db
     env_file:
       - .env
     ports:
@@ -88,4 +78,3 @@ volumes:
     driver: local
   mysql_data:
     driver: local
->>>>>>> d8444c48 (commit 1234567890abcdef1234567890abcdef12345678)
