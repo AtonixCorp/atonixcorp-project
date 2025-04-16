@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,31 +28,8 @@ jobs:
           cd Workshop/PixelFlow
           npm run build
 
-      - name: Force refresh actions cache
-        run: rm -rf ~/.cache/actions && echo "Cleared GitHub Actions cache"
-
-      - name: Enable Debugging
-        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
-
-      - name: Upload build folder as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: github-pages
-          path: Workshop/PixelFlow/build/
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: github-pages
-          path: ./build
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: Workshop/PixelFlow/build/
