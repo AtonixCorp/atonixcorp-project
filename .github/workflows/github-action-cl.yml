@@ -24,14 +24,6 @@ jobs:
           registry: docker.io
          
 
-      - name: Build and Push AtonixCorp (Root-Level Dockerfile)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ofidohubvm/quetzal:latest
-
       - name: Build and Push Pixelflow (React)
         uses: docker/build-push-action@v5
         with:
