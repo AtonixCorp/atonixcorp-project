@@ -73,10 +73,6 @@ roslibpy
 pymed
 pyscf
 ngcsdk
-<<<<<<< HEAD
-ngccli
-=======
->>>>>>> d8444c48 (commit 1234567890abcdef1234567890abcdef12345678)
 opentelemetry-sdk
 opentelemetry-instrumentation
 opentelemetry-instrumentation-flask
