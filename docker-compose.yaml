@@ -53,7 +53,12 @@ services:
 
   quetzal_db:
     image: postgres:latest
-    container_name: atonixcorp_db
+    container_name: quetzalpostgres_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST_AUTH_METHOD: trust
     env_file:
       - .env
     ports:
@@ -64,7 +69,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: atonixcorp_db
+    container_name: quetzalmysql_db
     env_file:
       - .env
     ports:
