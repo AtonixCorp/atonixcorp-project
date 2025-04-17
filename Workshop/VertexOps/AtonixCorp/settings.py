@@ -3,7 +3,8 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Ensure .env variables are loaded
+
 #         'Development Status :: 5 - Production/Stable',
 #         'Intended Audience :: Developers',
 
@@ -79,12 +80,29 @@ WSGI_APPLICATION = "AtonixCorp.wsgi.application"
 
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.getenv('MYSQL_URL'),
-        conn_max_age=600,  # Optional: Connection pooling
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'quetzal_db',
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': int(os.getenv("DB_PORT", 5432)),  # Ensures PORT is an integer
+        'OPTIONS': {
+            'sslmode': 'prefer',
+        },
+    },
+    'mysql_db': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("MYSQL_DATABASE"),
+        'USER': os.getenv("MYSQL_USER"),
+        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
+        'HOST': os.getenv("MYSQL_HOST"),
+        'PORT': int(os.getenv("MYSQL_PORT", 3306)),  # Ensures PORT is an integer
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    }
 }
-
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
