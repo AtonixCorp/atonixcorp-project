@@ -17,19 +17,37 @@ spec:
       - name: check-quetzal-db
         image: busybox
         command:
-          - 'sh'
-          - '-c'
-          - 'until nc -zv $QUETZAL_DB_HOST $QUETZAL_DB_PORT; do sleep 2; done'
+        - 'sh'
+        - '-c'
+        - 'until nc -zv $QUETZAL_DB_HOST $QUETZAL_DB_PORT; do sleep 2; done'
+        env:
+        - name: QUETZAL_DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST
+        - name: QUETZAL_DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_PORT
+
       containers:
       - name: vertexops
         image: ofidohubvm/vertexops:latest
         ports:
         - containerPort: 5567
         env:
-        - name: QUETZAL_DB_HOST
-          value: "atonixcorpvm-postgresql"
+        - name: atonixcorp
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST
         - name: QUETZAL_DB_PORT
-          value: "5432"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_PORT
         - name: QUETZAL_DB_USER
           valueFrom:
             secretKeyRef:
@@ -46,15 +64,21 @@ spec:
               name: db-credentials
               key: POSTGRES_DB
         - name: QUETZAL_API_URL
-          value: "http://quetzal-service.atonixcorpvm.svc.cluster.local:59876"
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: QUETZAL_API_URL
+
       - name: fluentd-cloud-logging
         image: fluent/fluentd-kubernetes-daemonset:v1
         resources:
           limits:
             cpu: "100m"
             memory: "200Mi"
+
       imagePullSecrets:
       - name: docker-pull-secret
+
 ---
 apiVersion: v1
 kind: Service
