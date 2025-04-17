@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertexops-deployment
+  namespace: atonixcorpvm
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  labels:
+    app: vertexops
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: vertexops
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  template:
+    metadata:
+      labels:
+        app: vertexops
+    spec:
+      containers:
+      - name: vertexops
+        image: ofidohubvm/vertexops:latest
+        imagePullPolicy: Always
+        env:
+        - name: QUETZAL_DB_HOST
+          value: atonixcorpvm-postgresql
+        - name: QUETZAL_DB_PORT
+          value: "5432"
+        - name: QUETZAL_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_USER
+        - name: QUETZAL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_PASSWORD
+        - name: QUETZAL_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: POSTGRES_DB
+        - name: QUETZAL_API_URL
+          value: http://quetzal-service.atonixcorpvm.svc.cluster.local:59876
+        ports:
+        - containerPort: 5567
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
+      - name: fluentd-cloud-logging
+        image: fluent/fluentd-kubernetes-daemonset:v1
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
+      initContainers:
+      - name: check-quetzal-db
+        image: busybox
+        imagePullPolicy: Always
+        command:
+        - sh
+        - -c
+        - until nc -zv $QUETZAL_DB_HOST $QUETZAL_DB_PORT; do sleep 2; done
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "100Mi"
+          requests:
+            cpu: "50m"
+            memory: "50Mi"
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: docker-pull-secret
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+
+status:
+  conditions:
+  - lastTransitionTime: "2025-04-17T11:17:06Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  - lastTransitionTime: "2025-04-17T11:27:07Z"
+    message: ReplicaSet "vertexops-deployment-77fbc79bff" has timed out progressing.
+    reason: ProgressDeadlineExceeded
+    status: "False"
+    type: Progressing
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
