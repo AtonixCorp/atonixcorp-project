@@ -54,7 +54,7 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - topologyKey: "kubernetes.io/atonixcorp"
+          - topologyKey: "kubernetes.io/hostname"
             labelSelector:
               matchLabels:
                 app.kubernetes.io/name: atonixcorpvm-cloud-controller-manager
