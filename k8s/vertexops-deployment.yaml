@@ -13,6 +13,11 @@ spec:
       labels:
         app: vertexops
     spec:
+      tolerations:
+      - key: "node.cilium.io/agent-not-ready"
+        operator: "Exists"
+        effect: "NoSchedule"
+      
       initContainers:
       - name: check-quetzal-db
         image: busybox
@@ -78,18 +83,3 @@ spec:
 
       imagePullSecrets:
       - name: docker-pull-secret
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: vertexops-service
-  namespace: atonixcorpvm
-spec:
-  selector:
-    app: vertexops
-  ports:
-  - protocol: TCP
-    port: 5567
-    targetPort: 5567
-  type: LoadBalancer

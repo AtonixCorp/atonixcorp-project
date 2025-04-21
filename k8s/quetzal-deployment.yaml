@@ -43,7 +43,7 @@ spec:
         - /bin/atonixcorpvm-cloud-controller-manager
         - --leader-elect=true
         - -v=1
-        image: ofidohubvm/quetzal:latestlatest
+        image: ofidohubvm/quetzal:latest
         resources:
           requests:
             cpu: "200m"
