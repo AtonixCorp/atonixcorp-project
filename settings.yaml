@@ -1,0 +1,53 @@
+application:
+  name: "AtonixCorp"
+  description: "hardware software"
+  services:
+    - name: "atonixcorp"
+      artifactType: "Docker"
+      artifactSource:
+        type: "DockerRegistry"
+        dockerRegistryUrl: "${DOCKER_REGISTRY_URL}"
+        imageName: "${DOCKER_IMAGE_NAME}"
+        tag: "${DOCKER_TAG}"
+
+  environments:
+    - name: "Dev_atonixcorp"
+      type: "Non-Prod"
+      infrastructureDefinitions:
+        - name: "DevInfraatonixcorp"
+          cloudProviderType: "Kubernetes"
+          namespace: "${KUBE_NAMESPACE}"
+
+  workflows:  
+    - name: "DeployToDev"
+      type: "Basic"
+      steps:
+        - stepType: "DeployService"
+          serviceName: "atonixcorp"
+          environmentName: "Dev_atonixcorp"
+          infrastructureDefinitionName: "DevInfraatonixcorp"
+
+containers:
+  vertexops:
+    image: "${VERTEXOPS_IMAGE}"
+    registry: "${VERTEXOPS_REGISTRY}"
+    tag: "${VERTEXOPS_TAG}"
+  quetzal:
+    image: "${QUETZAL_IMAGE}"
+    registry: "${QUETZAL_REGISTRY}"
+    tag: "${QUETZAL_TAG}"
+  pixelflow:
+    image: "${PIXELFLOW_IMAGE}"
+    registry: "${PIXELFLOW_REGISTRY}"
+    tag: "${PIXELFLOW_TAG}"
+  mysql:
+    image: "mysql:8.0"
+    registry: "docker.io"
+    tag: "latest"
+
+kubernetes:
+  namespace: "${KUBE_NAMESPACE}"
+  replicas: 3
+
+logging:
+  level: "${LOGGING_LEVEL}"
