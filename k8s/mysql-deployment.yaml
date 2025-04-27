@@ -2,18 +2,20 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
+  namespace: atonixcorpvm
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
-
+  storageClassName: standard
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: atonixcorpvm
 spec:
   replicas: 1
   selector:
@@ -27,17 +29,18 @@ spec:
       containers:
       - name: mysql
         image: mysql:latest
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "F?*RTAGl6"
-        - name: MYSQL_DATABASE
-          value: "quetzal_db"
-        - name: MYSQL_USER
-          value: "atonixdevmaster"
-        - name: MYSQL_PASSWORD
-          value: "F?*rtagL7dfatiFDH"
         ports:
         - containerPort: 3306
+        envFrom:
+        - secretRef:
+            name: mysql-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
@@ -45,15 +48,17 @@ spec:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: atonixcorpvm
 spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
   selector:
     app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP

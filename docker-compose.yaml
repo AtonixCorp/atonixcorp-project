@@ -4,13 +4,13 @@ services:
     container_name: pixelflow
     environment:
       BACKEND_URL: http://172.31.74.66:5567
-      PORT: 3000
+      PORT: 3030
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3000:3000"
+      - "3030:3030"
     depends_on:
       - backend
 
@@ -18,7 +18,7 @@ services:
     image: ofidohubvm/vertexops:latest
     container_name: vertexops
     ports:
-      - "5567:5567"
+      - "8000:8000"
     environment:
       DB_HOST: db
       DB_PORT: 3307

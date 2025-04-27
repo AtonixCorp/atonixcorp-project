@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pixelflow-deployment
+  name: pixelflow
   namespace: atonixcorpvm
 spec:
   replicas: 1
@@ -13,33 +13,13 @@ spec:
       labels:
         app: pixelflow
     spec:
+      imagePullSecrets:
+        - name: docker-pull-secret
       containers:
       - name: pixelflow
-        image: ofidohubvm/pixelflow:latest
+        image: docker.io/ofidohubvm/pixelflow:latest
         ports:
-        - containerPort: 3000
+        - containerPort: 3030
         env:
         - name: BACKEND_URL
-          value: "http://172.31.74.66:5567"  # Frontend depends on backend
-      - name: fluentd-cloud-logging
-        image: fluent/fluentd-kubernetes-daemonset:v1
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "200Mi"
-      imagePullSecrets:
-      - name: docker-pull-secret
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pixelflow-service
-  namespace: atonixcorpvm
-spec:
-  selector:
-    app: pixelflow
-  ports:
-  - protocol: TCP
-    port: 3000
-    targetPort: 3000
-  type: LoadBalancer
+          value: "http://vertexops-service.atonixcorpvm.svc.cluster.local:5567"

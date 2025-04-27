@@ -1,7 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: atonixcorpvm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vertexops-deployment
+  name: vertexops
   namespace: atonixcorpvm
 spec:
   replicas: 1
@@ -13,73 +25,44 @@ spec:
       labels:
         app: vertexops
     spec:
-      tolerations:
-      - key: "node.cilium.io/agent-not-ready"
-        operator: "Exists"
-        effect: "NoSchedule"
-      
-      initContainers:
-      - name: check-quetzal-db
-        image: busybox
-        command:
-        - 'sh'
-        - '-c'
-        - 'until nc -zv $QUETZAL_DB_HOST $QUETZAL_DB_PORT; do sleep 2; done'
-        env:
-        - name: QUETZAL_DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: DB_HOST
-        - name: QUETZAL_DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: DB_PORT
-
+      imagePullSecrets:
+        - name: docker-pull-secret
       containers:
       - name: vertexops
-        image: ofidohubvm/vertexops:latest
+        image: docker.io/ofidohubvm/vertexops:latest
         ports:
         - containerPort: 5567
         env:
-        - name: atonixcorp
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: DB_HOST
-        - name: QUETZAL_DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: DB_PORT
-        - name: QUETZAL_DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_USER
-        - name: QUETZAL_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_PASSWORD
-        - name: QUETZAL_DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: POSTGRES_DB
-        - name: QUETZAL_API_URL
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: QUETZAL_API_URL
-
-      - name: fluentd-cloud-logging
-        image: fluent/fluentd-kubernetes-daemonset:v1
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "200Mi"
-
-      imagePullSecrets:
-      - name: docker-pull-secret
+        - name: MYSQL_ROOT_PASSWORD
+          value: "F?*RTAGl6"
+        - name: MYSQL_DATABASE
+          value: "quetzal_db"
+        - name: MYSQL_USER
+          value: "atonixdevmaster"
+        - name: MYSQL_PASSWORD
+          value: "F?*rtagL7dfatiFDH"
+        - name: MYSQL_HOST
+          value: "localhost"
+        - name: MYSQL_PORT
+          value: "3306"
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-storage
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vertexops-service
+  namespace: atonixcorpvm
+spec:
+  selector:
+    app: vertexops
+  ports:
+    - protocol: TCP
+      port: 5567
+      targetPort: 5567
+  type: ClusterIP
