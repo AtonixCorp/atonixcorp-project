@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "shell",
+    "services/auth",
+    "services/mail",
+    "libs/config",
+    "dashboard/frontend",
+    "dashboard/backend",
+]
