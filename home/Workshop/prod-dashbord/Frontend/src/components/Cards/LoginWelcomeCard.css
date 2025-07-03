@@ -1,37 +1,37 @@
-/* Container Styles */
+
 .welcome-card {
   width: 100%;
-  max-width: 400px; /* Restricts the width to 400px */
+  max-width: 400px; 
   margin: 20px auto;
   padding: 20px;
-  background-color: #ffffff; /* White background for the card */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  background-color: #ffffff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  transition: transform 0.2s; /* Smooth transition for hover effects */
+  transition: transform 0.2s;
 }
 
-/* Card Hover Effect */
+
 .welcome-card:hover {
-  transform: translateY(-5px); /* Slightly lifts the card */
+  transform: translateY(-5px); 
 }
 
-/* Title Styles */
+
 .welcome-card .card-title {
   text-align: center;
   font-size: 1.5rem;
-  color: #343a40; /* Darker color for the title */
+  color: #343a40; 
   margin-bottom: 20px;
 }
 
-/* Text Styles */
+
 .welcome-card .card-text {
   text-align: center;
   font-size: 1rem;
-  color: #6c757d; /* Muted color for the text */
+  color: #6c757d;
   margin-bottom: 20px;
 }
 
-/* Button Styles */
+
 .welcome-card .btn-block {
   display: block;
   width: 100%;
@@ -40,36 +40,36 @@
 }
 
 .welcome-card .btn-primary {
-  background-color: #007bff; /* Primary blue */
+  background-color: #007bff;
   border-color: #007bff;
 }
 
 .welcome-card .btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
   border-color: #0056b3;
 }
 
 .welcome-card .btn-secondary {
-  background-color: #6c757d; /* Secondary gray */
+  background-color: #6c757d;
   border-color: #6c757d;
 }
 
 .welcome-card .btn-secondary:hover {
-  background-color: #5a6268; /* Darker gray on hover */
+  background-color: #5a6268;
   border-color: #5a6268;
 }
 
 .welcome-card .btn-info {
-  background-color: #17a2b8; /* Info teal */
+  background-color: #17a2b8; 
   border-color: #17a2b8;
 }
 
 .welcome-card .btn-info:hover {
-  background-color: #138496; /* Darker teal on hover */
+  background-color: #138496;
   border-color: #138496;
 }
 
-/* Social Media Icons Styles */
+
 .welcome-card .social-media-icons {
   display: flex;
   justify-content: space-around;
@@ -77,13 +77,13 @@
 }
 
 .welcome-card .social-media-icons a {
-  color: #495057; /* Muted color for icons */
-  transition: color 0.2s, transform 0.2s; /* Smooth transition for color and transform */
+  color: #495057;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .welcome-card .social-media-icons a:hover {
-  color: #007bff; /* Changes to primary blue on hover */
-  transform: scale(1.1); /* Slightly enlarges on hover */
+  color: #007bff;
+  transform: scale(1.1);
 }
 
 /* Modal Styles */

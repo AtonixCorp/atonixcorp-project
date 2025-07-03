@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './Header.css'; 
+import LoginWelcomeCard from '../Cards/LoginWelcomeCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import LoginWelcomeCard from './Cards/LoginWelcomeCard'; // Import the card
+
 
 const Header = () => {
     const [showSearch, setShowSearch] = useState(false);

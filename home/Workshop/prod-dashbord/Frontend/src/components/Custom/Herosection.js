@@ -10,11 +10,11 @@ const Herosection = () => {
       <div className="container d-flex flex-column justify-content-center align-items-center">
         <div className="herosection-content text-center my-5">
           <h1 className="hero-title">
-            Be Part of Developing the Future of Atonixcorp!
+            Be Part of Developing the Future of AtonixCorp!
           </h1>
           <p className="hero-subtitle">
-            Join the Developer Preview Program to see what we are building and make an impact on the future of Atonixcorp products.
-            Help us shape the future of Atonixcorp products by providing feedback.
+            Join the Developer Preview Program to see what we are building and make an impact on the future of AtonixCorp products.
+            Help us shape the future of AtonixCorp products by providing feedback.
           </p>
           <a href="https://developer.atonix.com/" className="btn btn-primary btn-lg mt-4">Join the Developer Preview Program</a>
         </div>

@@ -4,7 +4,7 @@ import 'react-phone-input-2/lib/style.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import './account/ContactUs';
+import '../account/ContactUs';
 import './Footer.css';
 import {
   faLinkedin,
