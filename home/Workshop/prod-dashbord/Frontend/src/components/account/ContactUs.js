@@ -34,6 +34,7 @@ const ContactUs = () => {
     try {
       // Replace with your actual API endpoint
       const response = await axios.post('/api/contact', formData);
+      console.log('Contact form submitted:', response.data);
       setStatus({ loading: false, success: 'Message sent successfully!', error: null });
       setFormData({
         name: '',
