@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './ContactUs.css';
@@ -15,18 +16,40 @@ const ContactUs = () => {
     note: '',
   });
 
+  const [status, setStatus] = useState({ loading: false, success: null, error: null });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handlePhoneChange = (value) => {
-    setFormData({ ...formData, phoneNumber: value });
+    setFormData(prev => ({ ...prev, phoneNumber: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    setStatus({ loading: true, success: null, error: null });
+
+    try {
+      // Replace with your actual API endpoint
+      const response = await axios.post('/api/contact', formData);
+      setStatus({ loading: false, success: 'Message sent successfully!', error: null });
+      setFormData({
+        name: '',
+        email: '',
+        country: '',
+        phoneNumber: '',
+        service: '',
+        note: '',
+      });
+    } catch (error) {
+      setStatus({
+        loading: false,
+        success: null,
+        error: error.response?.data?.message || 'Something went wrong. Please try again.',
+      });
+    }
   };
 
   return (
@@ -37,6 +60,7 @@ const ContactUs = () => {
         features, trials, pricing, need a demo, or anything else, our team is
         ready to answer all your questions.
       </p>
+
       <form className="contact-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <input
@@ -98,10 +122,13 @@ const ContactUs = () => {
             required
           ></textarea>
         </div>
-        <button type="submit" className="btn">
-          Submit
+        <button type="submit" className="btn" disabled={status.loading}>
+          {status.loading ? 'Sending...' : 'Submit'}
         </button>
       </form>
+
+      {status.success && <p className="text-success mt-3">{status.success}</p>}
+      {status.error && <p className="text-danger mt-3">{status.error}</p>}
     </section>
   );
 };

@@ -60,10 +60,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "auth0-js": "^9.15.0",
-    "axios": "^1.8.4",
+    "axios": "^1.10.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "commander": "^14.0.0",
+    "css-select": "^6.0.0",
     "helmet": "^4.6.0",
+    "hsu-utils": "^0.0.39",
     "mysql2": "^3.14.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.7",
@@ -117,6 +120,9 @@
     "webpack": "^5.99.9",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^5.2.2"
+  },
+  "bin": {
+    "string-util": "./cli/string-util.js"
   },
   "eslintConfig": {
     "extends": [
