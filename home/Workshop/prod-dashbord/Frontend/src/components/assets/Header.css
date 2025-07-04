@@ -9,20 +9,55 @@
   color: white;
 }
 
+
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  padding: 10px 20px;
 }
 
 .logo {
   height: 40px;
-  margin-right: 10px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.logo-text {
+.logo:hover {
+  transform: scale(1.05);
+  color: #1ABC9C; /* Expert accent teal */
+  border-color: #1ABC9C;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+
+}
+
+
+/*.logo-text {
   font-size: 1.5rem;
   font-weight: bold;
+  color: #007bff; 
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  letter-spacing: 1px;
+  user-select: none;
 }
+*/
+
+.logo-text {
+  font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+  font-size: 2.0rem;
+  font-weight: 600;
+  color: whitesmoke; /* Expert accent teal */
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #ff69b4, #1e90ff); 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+
+
 
 .nav {
   display: flex;
