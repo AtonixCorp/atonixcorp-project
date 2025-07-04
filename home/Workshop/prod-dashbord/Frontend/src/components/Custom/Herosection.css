@@ -1,7 +1,7 @@
 .herosection {
   width: 100%;
   min-height: 20vh;
-  background: linear-gradient(135deg, #1a237e, #003153);
+  background: linear-gradient(135deg, #ff69b4, #1e90ff); 
   color: white;
   display: flex;
   align-items: center;

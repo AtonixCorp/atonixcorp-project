@@ -1,38 +1,41 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './utils/analytics';
-import './App.css';
 
-import Footer from './components/assets/Footer';
-import HomePage from './components/assets/HomePage';
+// Core Layout Components
 import Header from './components/assets/Header';
+import Footer from './components/assets/Footer';
 import Herosection from './components/Custom/Herosection';
-//import Menu from './components/Menu';
+import Topheader from './components/assets/Topheader';
+
+// Page Components
+import HomePage from './components/assets/HomePage';
 import AboutUs from './components/assets/AboutUs';
 import Developments from './components/assets/Developments';
 import Community from './components/assets/Community';
 import Products from './components/assets/Products';
 import Support from './components/assets/Support';
 import Company from './components/assets/Company';
-import SignIn from './components/account/SignIn'; 
-import SignUp from './components/account/SignUp'; 
+import SignIn from './components/account/SignIn';
+import SignUp from './components/account/SignUp';
 import ContactUs from './components/account/ContactUs';
-//import Post from './components/Post';
-import Notification from './components/Notification';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Notification />
+        <Topheader />
         <Header />
         <Herosection />
         <HomePage />
-        <div className="main-container">
-          <div className="content">
+        <main className="main-container">
+          <div className="content container py-4">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/developments/project1" element={<Developments />} />
                 <Route path="/developments/project2" element={<Developments />} />
@@ -43,14 +46,16 @@ function App() {
                 <Route path="/support/contact" element={<Support />} />
                 <Route path="/company/about" element={<Company />} />
                 <Route path="/company/careers" element={<Company />} />
-                <Route path="/signin" element={<SignIn />} /> {/* Add SignIn route */}
-                <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
-                <Route path="/contactus" element={<ContactUs />} /> {/* Add Contact route */}
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/contactus" element={<ContactUs />} />
               </Routes>
             </Suspense>
           </div>
-        </div>
+        </main>
+
         <Footer />
+        <Topheader />
       </div>
     </Router>
   );

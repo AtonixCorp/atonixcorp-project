@@ -20,10 +20,7 @@ const LoginWelcomeCard = ({ show, handleClose }) => {
     handleClose();
   };
 
-  const handleContactClick = () => {
-    navigate('/contact');
-    handleClose();
-  };
+
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -37,9 +34,6 @@ const LoginWelcomeCard = ({ show, handleClose }) => {
           </Button>
           <Button variant="secondary" className="mb-2" block onClick={handleSignUpClick}>
             Sign Up
-          </Button>
-          <Button variant="info" className="mb-2" block onClick={handleContactClick}>
-            Contact
           </Button>
         </Form>
         <div className="social-media-icons">
