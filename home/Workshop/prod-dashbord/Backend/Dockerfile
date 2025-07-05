@@ -24,4 +24,4 @@ COPY . /app/
 EXPOSE 5567
 
 # Set the default command to run the application
-CMD ["gunicorn", "AtonixCorp.wsgi:application", "--bind", "0.0.0.0:5567"]
+CMD ["gunicorn", "AtonixCorp.wsgi:application", "--bind", "0.0.0.0:5000", "--workers", "3", "--timeout", "120"]
