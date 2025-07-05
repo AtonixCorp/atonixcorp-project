@@ -49,25 +49,82 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:esbuild": "esbuild src/index.jsx --bundle --outfile=public/bundle.js --loader:.jsx=jsx --minify",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx}'",
     "format": "prettier --write 'src/**/*.{js,jsx,json,css,scss,md}'"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ],
+    "rules": {
+      "at-rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "blockless-after-same-name-blockless",
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ],
+      "block-no-empty": true,
+      "color-no-invalid-hex": true,
+      "declaration-colon-space-after": "always",
+      "indentation": 2,
+      "max-empty-lines": 1,
+      "no-duplicate-selectors": true,
+      "number-leading-zero": "always",
+      "property-no-vendor-prefix": true,
+      "selector-pseudo-element-colon-notation": "double",
+      "string-quotes": "single",
+      "unit-no-unknown": true
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 80,
+    "tabWidth": 2,
+    "semi": true,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "endOfLine": "lf"
+  },
   "dependencies": {
+    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/plugin-transform-optional-chaining": "^7.27.1",
+    "@babel/plugin-transform-private-methods": "^7.27.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@redux-devtools/extension": "^3.3.0",
     "auth0-js": "^9.15.0",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "commander": "^14.0.0",
     "css-select": "^6.0.0",
+    "eslint": "^9.30.1",
     "helmet": "^8.1.0",
-    "hsu-utils": "^0.0.14",
+    "hsu-utils": "^0.0.12",
+    "install": "^0.13.0",
+    "lru-cache": "^11.1.0",
     "mysql2": "^3.14.0",
+    "npm": "^11.4.2",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.1.0",
@@ -78,13 +135,12 @@
     "react-query": "^3.39.2",
     "react-redux": "^9.2.0",
     "react-router": "^7.6.3",
-    "react-router-dom": "^7.5.0",
+    "react-router-dom": "^7.6.3",
     "react-scripts": "^5.0.1",
     "react-social-icons": "^6.24.0",
     "react-toastify": "^11.0.5",
     "react-transition-group": "^4.4.5",
     "redux": "^5.0.1",
-    "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-encrypt": "^5.1.1",
@@ -99,14 +155,15 @@
     "@minify-html/node": "^0.16.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.1",
     "@rollup/plugin-terser": "^0.4.4",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/react": "^12.1.5",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.6.0",
     "ajv": "^8.13.0",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.0",
     "cross-env": "^7.0.3",
-    "eslint": "^9.30.1",
     "eslint-plugin-react": "^7.37.3",
     "html-minimizer-webpack-plugin": "^5.0.2",
     "html-webpack-plugin": "^5.6.3",
@@ -128,12 +185,6 @@
   },
   "bin": {
     "string-util": "./cli/string-util.js"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

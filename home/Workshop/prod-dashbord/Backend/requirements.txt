@@ -43,3 +43,4 @@ whitenoise
 django-health-check 
 django-ratelimit
  dj-database-url
+ cryptography
