@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import './NavBar.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import SignUp from '../account/SignUp';
 import SignIn from '../account/SignIn';
 import logo from '../images/logo512.png';
@@ -19,108 +13,70 @@ const NavBar = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-xxl navbar-dark navbar-custom text-white p-1 border border-primary-subtle rounded-3 w-100 fixed-top"
-      aria-label="Seventh navbar example"
+      style={{
+        backgroundColor: '#1a1a1a',
+        color: '#fff',
+        padding: '10px',
+        position: 'fixed',
+        width: '100%',
+        top: 0,
+        left: 0,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: '1px solid #444',
+        zIndex: 1000
+      }}
     >
-      <div className="container-fluid">
-        <Link to="/" className="navbar-brand">
-          <img src={logo} alt="AtonixCorp Logo" className="navbar-logo" />
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsExampleXxl"
-          aria-controls="navbarsExampleXxl"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
+      <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
+        <img src={logo} alt="Logo" style={{ height: '40px' }} />
+      </Link>
+
+      <div style={{ display: 'flex', gap: '15px' }}>
+        <Link to="/" style={{ color: '#fff' }}>Home</Link>
+        <Link to="/projects" style={{ color: '#fff' }}>Projects</Link>
+        <a href="https://community.atonixcorp.com" target="_blank" rel="noopener noreferrer" style={{ color: '#fff' }}>Community</a>
+        <Link to="/research" style={{ color: '#fff' }}>Research</Link>
+        <Link to="/register" style={{ color: '#fff' }}>Blog</Link>
+        <Link to="/about" style={{ color: '#fff' }}>About Us</Link>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <input
+          type="search"
+          placeholder="Search"
+          style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+        />
+
+        <button onClick={() => setShowSignUp(true)} style={{ padding: '6px 12px' }}>
+          Sign Up
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarsExampleXxl">
-          <ul className="navbar-nav me-auto mb-2 mb-xl-0">
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/projects">Projects</Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link text-white" href="https://community.atonixcorp.com" target="_blank" rel="noopener noreferrer">Community</a>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/research">Research</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/register">Blog</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/about">About Us</Link>
-            </li>
-          </ul>
-
-          <form role="search" className="d-flex me-3">
-            <input
-              className="form-control form-control-sm me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-
-          <button
-            type="button"
-            className="btn btn-primary me-2"
-            data-bs-toggle="modal"
-            data-bs-target="#signUpModal"
-            onClick={() => setShowSignUp(true)}
-          >
-            Sign Up
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-secondary"
-            data-bs-toggle="modal"
-            data-bs-target="#signInModal"
-            onClick={() => setShowSignUp(false)}
-          >
-            Sign In
-          </button>
-
-          {/* Sign Up Modal */}
-          <div className="modal fade" id="signUpModal" tabIndex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-scrollable modal-lg">
-              <div className="modal-content">
-                <div className="modal-header border-bottom-0">
-                  <h5 className="modal-title" id="signUpModalLabel">Sign Up</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <SignUp toggleSignIn={toggleSignIn} onClose={() => document.getElementById('signUpModal')?.click()} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Sign In Modal */}
-          <div className="modal fade" id="signInModal" tabIndex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-scrollable modal-lg">
-              <div className="modal-content">
-                <div className="modal-header border-bottom-0">
-                  <h5 className="modal-title" id="signInModalLabel">Sign In</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <SignIn toggleSignUp={toggleSignUp} onClose={() => document.getElementById('signInModal')?.click()} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <button onClick={() => setShowSignUp(false)} style={{ padding: '6px 12px' }}>
+          Sign In
+        </button>
       </div>
+
+      {/* Modals (basic conditional render simulation) */}
+      {showSignUp && (
+        <div style={{
+          position: 'fixed', top: 60, right: 20, backgroundColor: '#fff',
+          color: '#000', padding: '20px', border: '1px solid #ccc', borderRadius: '6px'
+        }}>
+          <h3>Sign Up</h3>
+          <SignUp toggleSignIn={toggleSignIn} onClose={() => setShowSignUp(false)} />
+        </div>
+      )}
+
+      {!showSignUp && (
+        <div style={{
+          position: 'fixed', top: 60, right: 20, backgroundColor: '#fff',
+          color: '#000', padding: '20px', border: '1px solid #ccc', borderRadius: '6px'
+        }}>
+          <h3>Sign In</h3>
+          <SignIn toggleSignUp={toggleSignUp} onClose={() => setShowSignUp(true)} />
+        </div>
+      )}
     </nav>
   );
 };
