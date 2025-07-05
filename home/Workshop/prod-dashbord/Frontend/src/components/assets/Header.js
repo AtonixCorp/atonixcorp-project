@@ -1,25 +1,39 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import LoginWelcomeCard from '../Cards/LoginWelcomeCard';
 import logo from './logo512.png';
+
+const navLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'Industry', path: '/Industry' },
+  { label: 'Resources', path: '/Resources' },
+  { label: 'atons&Innovation', path: '/atons&Innovation' },
+  { label: 'Cybersecurity', path: '/Cybersecurity' },
+  { label: 'Developers', path: '/developers' },
+  { label: 'Community', path: '/Community' },
+  { label: 'Products', path: '/products' }
+];
 
 const styles = {
   navbar: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#003153',
+    backgroundColor: '#ffffff', // White background
     padding: '10px 20px',
-    color: 'white',
+    color: '#003153',
+    flexWrap: 'wrap',
+    overflowX: 'hidden',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
   },
   logoContainer: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     marginRight: 'auto',
-    padding: '10px 20px',
+    padding: '10px 0',
   },
   logoButton: {
     all: 'unset',
@@ -30,20 +44,15 @@ const styles = {
   logo: {
     height: '40px',
     borderRadius: '50%',
-    width: 'auto',
     objectFit: 'contain',
     transition: 'transform 0.3s ease',
   },
   logoText: {
-    fontFamily: 'Montserrat, Helvetica Neue, sans-serif',
-    fontSize: '2rem',
-    fontWeight: 600,
-    color: 'whitesmoke',
-    padding: '5px 10px',
-    background: 'linear-gradient(135deg, #ff69b4, #1e90ff)',
-    borderRadius: '10px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    transition: 'all 0.3s ease',
+    fontFamily: 'Playfair Display, Georgia, serif',
+    fontSize: '1.8rem',
+    fontWeight: 500,
+    color: '#003153',
+    letterSpacing: '1px',
   },
   nav: {
     display: 'flex',
@@ -52,7 +61,7 @@ const styles = {
     marginLeft: '20px',
   },
   navLink: {
-    color: 'white',
+    color: '#003153',
     fontSize: '1rem',
     fontWeight: 500,
     background: 'none',
@@ -65,19 +74,21 @@ const styles = {
   iconContainer: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
   },
   icon: {
-    margin: '0 10px',
     cursor: 'pointer',
+    fontSize: '1.2rem',
+    color: '#003153',
   },
   searchBar: {
     padding: '5px',
-    border: '1px solid #ddd',
+    border: '1px solid #ccc',
     borderRadius: '5px',
   },
   translator: {
     padding: '5px',
-    border: '1px solid #ddd',
+    border: '1px solid #ccc',
     borderRadius: '5px',
   },
   button: {
@@ -88,17 +99,24 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+    marginLeft: '10px'
   },
   buttonText: {
     fontSize: '1rem',
     fontWeight: 'bold',
   },
+  mobileMenu: {
+    display: 'none',
+    flexDirection: 'column',
+    padding: '10px 0',
+  }
 };
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
   const [showLoginCard, setShowLoginCard] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const navigate = useNavigate();
 
   const handleHover = (e, scale) => {
@@ -106,9 +124,12 @@ const Header = () => {
     if (img) img.style.transform = scale;
   };
 
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <header style={styles.navbar}>
       <div style={styles.logoContainer}>
+        <span style={styles.logoText}>AtonixCorp</span>
         <button
           style={styles.logoButton}
           onMouseEnter={(e) => handleHover(e, 'scale(1.05)')}
@@ -119,20 +140,30 @@ const Header = () => {
         >
           <img src={logo} alt="Logo" style={styles.logo} />
         </button>
-        <span style={styles.logoText}>ATONIXCORP</span>
       </div>
 
-      <nav style={styles.nav}>
-        {['/',  '/Industry', '/Resources', '/atons&Innovation', '/Cybersecurity', '/developers', '/Community', '/products'].map((path, index) => (
-          <button
-            key={path}
-            onClick={() => navigate(path)}
-            style={styles.navLink}
-          >
-            {['Home', 'Industry', 'Resources', 'atons&Innovation', 'Cybersecurity', 'Developers', 'Community', 'Products'][index]}
-          </button>
-        ))}
-      </nav>
+      {isMobile ? (
+        <>
+          <FontAwesomeIcon icon={faBars} style={styles.icon} onClick={() => setShowMobileMenu(!showMobileMenu)} />
+          {showMobileMenu && (
+            <div style={styles.mobileMenu}>
+              {navLinks.map(({ label, path }) => (
+                <button key={path} onClick={() => navigate(path)} style={styles.navLink}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      ) : (
+        <nav style={styles.nav}>
+          {navLinks.map(({ label, path }) => (
+            <button key={path} onClick={() => navigate(path)} style={styles.navLink}>
+              {label}
+            </button>
+          ))}
+        </nav>
+      )}
 
       <div style={styles.iconContainer}>
         <FontAwesomeIcon
@@ -143,9 +174,8 @@ const Header = () => {
             setShowLanguage(false);
           }}
         />
-        {showSearch && (
-          <input type="text" style={styles.searchBar} placeholder="Search..." />
-        )}
+        {showSearch && <input type="text" style={styles.searchBar} placeholder="Search..." />}
+
         <FontAwesomeIcon
           icon={faGlobe}
           style={styles.icon}
@@ -169,10 +199,7 @@ const Header = () => {
       </button>
 
       {showLoginCard && (
-        <LoginWelcomeCard
-          show={showLoginCard}
-          handleClose={() => setShowLoginCard(false)}
-        />
+        <LoginWelcomeCard show={showLoginCard} handleClose={() => setShowLoginCard(false)} />
       )}
     </header>
   );
