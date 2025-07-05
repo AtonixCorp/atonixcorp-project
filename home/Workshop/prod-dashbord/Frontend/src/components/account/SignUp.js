@@ -4,7 +4,6 @@ import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { SocialIcon } from 'react-social-icons';
-import styles from './SignUp.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SignUp = ({ toggleSignIn, onClose }) => {
@@ -16,7 +15,6 @@ const SignUp = ({ toggleSignIn, onClose }) => {
     email: '',
     password: '',
     confirmPassword: '',
-    country: '',
     phoneNumber: '',
     termsAccepted: false,
   });
@@ -35,10 +33,7 @@ const SignUp = ({ toggleSignIn, onClose }) => {
   };
 
   const handlePhoneChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      phoneNumber: value,
-    }));
+    setFormData((prev) => ({ ...prev, phoneNumber: value }));
   };
 
   const validateForm = () => {
@@ -56,7 +51,6 @@ const SignUp = ({ toggleSignIn, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) return;
-
     setIsLoading(true);
     try {
       const response = await axios.post('/api/signup', formData);
@@ -72,88 +66,108 @@ const SignUp = ({ toggleSignIn, onClose }) => {
 
   const handleSocialSignUp = (provider) => {
     console.log(`Sign up with ${provider}`);
-    // You can add logic to trigger OAuth flows here
+    // Trigger OAuth flow here
   };
 
   return (
-    <div className={`container ${styles.container} mt-5`}>
+    <div
+      className="container mt-5"
+      style={{
+        maxWidth: '500px',
+        backgroundColor: '#fff',
+        padding: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+      }}
+    >
       <div className="d-flex justify-content-end">
-        <button
-          type="button"
-          className={`btn-close ${styles.btnClose}`}
-          aria-label="Close"
-          onClick={onClose}
-        ></button>
+        <button type="button" className="btn-close" aria-label="Close" onClick={onClose}></button>
       </div>
 
-      <h1 className="text-center mb-4">Sign Up</h1>
+      <h1 className="text-center mb-3">Sign Up</h1>
       <p className="text-center mb-4">Join us today and start exploring!</p>
 
       {!isSubmitted ? (
-        <form onSubmit={handleSubmit} className={`auth-form ${styles.authForm} p-4 border rounded shadow`}>
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 border rounded shadow-sm"
+          style={{ backgroundColor: '#f9f9f9' }}
+        >
           <div className="mb-3">
-            <label htmlFor="username" className="form-label">Username:</label>
+            <label htmlFor="username" className="form-label">
+              Username:
+            </label>
             <input
               type="text"
-              className={`form-control ${styles.input}`}
+              className="form-control"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              required
               placeholder="Enter your username"
+              required
               disabled={isLoading}
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email:</label>
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
             <input
               type="email"
-              className={`form-control ${styles.input}`}
+              className="form-control"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               placeholder="Enter your email"
+              required
               disabled={isLoading}
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password:</label>
+            <label htmlFor="password" className="form-label">
+              Password:
+            </label>
             <input
               type="password"
-              className={`form-control ${styles.input}`}
+              className="form-control"
               id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              required
               placeholder="Enter your password"
+              required
               disabled={isLoading}
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
+            <label htmlFor="confirmPassword" className="form-label">
+              Confirm Password:
+            </label>
             <input
               type="password"
-              className={`form-control ${styles.input}`}
+              className="form-control"
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              required
               placeholder="Confirm your password"
+              required
               disabled={isLoading}
             />
-            {errors.confirmPassword && <div className="text-danger">{errors.confirmPassword}</div>}
+            {errors.confirmPassword && (
+              <div className="text-danger mt-1">{errors.confirmPassword}</div>
+            )}
           </div>
 
           <div className="mb-3">
-            <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
+            <label htmlFor="phoneNumber" className="form-label">
+              Phone Number:
+            </label>
             <PhoneInput
               country={'us'}
               value={formData.phoneNumber}
@@ -161,10 +175,9 @@ const SignUp = ({ toggleSignIn, onClose }) => {
               inputProps={{
                 name: 'phoneNumber',
                 required: true,
-                autoFocus: false,
                 disabled: isLoading,
               }}
-              containerClass={`form-control ${styles.input}`}
+              inputStyle={{ width: '100%' }}
             />
           </div>
 
@@ -179,13 +192,25 @@ const SignUp = ({ toggleSignIn, onClose }) => {
               required
               disabled={isLoading}
             />
-            <label className="form-check-label" htmlFor="termsAccepted">
+            <label htmlFor="termsAccepted" className="form-check-label">
               I accept the terms and conditions
             </label>
-            {errors.termsAccepted && <div className="text-danger">{errors.termsAccepted}</div>}
+            {errors.termsAccepted && (
+              <div className="text-danger mt-1">{errors.termsAccepted}</div>
+            )}
           </div>
 
-          <button type="submit" className={`btn btn-primary w-100 ${styles.submitButton}`} disabled={isLoading}>
+          <button
+            type="submit"
+            className="btn w-100 text-white"
+            disabled={isLoading}
+            style={{
+              backgroundColor: '#0d9494',
+              fontSize: '18px',
+              padding: '10px',
+              borderRadius: '5px',
+            }}
+          >
             {isLoading ? 'Signing Up…' : 'Sign Up'}
           </button>
         </form>
@@ -193,17 +218,17 @@ const SignUp = ({ toggleSignIn, onClose }) => {
         <p className="text-center mt-3">Thank you for signing up!</p>
       )}
 
-      <p className="text-center mt-3">Or sign up with:</p>
-      <div className={`d-flex justify-content-center mb-3 ${styles.socialIcons}`}>
-        <SocialIcon network="twitter" className={styles.socialIcon} onClick={() => handleSocialSignUp('Twitter')} />
-        <SocialIcon network="github" className={styles.socialIcon} onClick={() => handleSocialSignUp('GitHub')} />
-        <SocialIcon network="linkedin" className={styles.socialIcon} onClick={() => handleSocialSignUp('LinkedIn')} />
-        <SocialIcon network="google" className={styles.socialIcon} onClick={() => handleSocialSignUp('Google')} />
+      <p className="text-center mt-4">Or sign up with:</p>
+      <div className="d-flex justify-content-center gap-3 mb-3">
+        <SocialIcon network="twitter" style={{ width: 40, height: 40 }} onClick={() => handleSocialSignUp('Twitter')} />
+        <SocialIcon network="github" style={{ width: 40, height: 40 }} onClick={() => handleSocialSignUp('GitHub')} />
+        <SocialIcon network="linkedin" style={{ width: 40, height: 40 }} onClick={() => handleSocialSignUp('LinkedIn')} />
+        <SocialIcon network="google" style={{ width: 40, height: 40 }} onClick={() => handleSocialSignUp('Google')} />
       </div>
 
-      <p className="text-center mt-3">
+      <p className="text-center">
         Already have an account?{' '}
-        <button className={`btn btn-link ${styles.btnLink}`} onClick={toggleSignIn}>
+        <button className="btn btn-link text-decoration-none" style={{ color: '#0d9494' }} onClick={toggleSignIn}>
           Sign in here
         </button>
       </p>

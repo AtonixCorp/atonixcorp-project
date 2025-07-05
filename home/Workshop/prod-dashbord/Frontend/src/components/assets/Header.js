@@ -1,78 +1,161 @@
 import React, { useState } from 'react';
-import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import LoginWelcomeCard from '../Cards/LoginWelcomeCard';
-import DropdownMenu from './DropdownMenu';
+import logo from './logo512.png';
 
-const dropdownData = {
-  developments: [
-    { name: 'Project 1', path: '/developments/project1' },
-    { name: 'Project 2', path: '/developments/project2' },
-  ],
-  community: [
-    { name: 'Event 1', path: '/community/event1' },
-    { name: 'Event 2', path: '/community/event2' },
-  ],
-  products: [
-    { name: 'Product 1', path: '/products/product1' },
-    { name: 'Product 2', path: '/products/product2' },
-  ],
-  support: [
-    { name: 'FAQ', path: '/support/faq' },
-    { name: 'Contact', path: '/support/contact' },
-  ],
-  company: [
-    { name: 'About Us', path: '/company/about' },
-    { name: 'Careers', path: '/company/careers' },
-  ],
+const styles = {
+  navbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#003153',
+    padding: '10px 20px',
+    color: 'white',
+  },
+  logoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    marginRight: 'auto',
+    padding: '10px 20px',
+  },
+  logoButton: {
+    all: 'unset',
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+  logo: {
+    height: '40px',
+    borderRadius: '50%',
+    width: 'auto',
+    objectFit: 'contain',
+    transition: 'transform 0.3s ease',
+  },
+  logoText: {
+    fontFamily: 'Montserrat, Helvetica Neue, sans-serif',
+    fontSize: '2rem',
+    fontWeight: 600,
+    color: 'whitesmoke',
+    padding: '5px 10px',
+    background: 'linear-gradient(135deg, #ff69b4, #1e90ff)',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    transition: 'all 0.3s ease',
+  },
+  nav: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+    marginLeft: '20px',
+  },
+  navLink: {
+    color: 'white',
+    fontSize: '1rem',
+    fontWeight: 500,
+    background: 'none',
+    border: 'none',
+    padding: '0',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    transition: 'color 0.3s ease',
+  },
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    margin: '0 10px',
+    cursor: 'pointer',
+  },
+  searchBar: {
+    padding: '5px',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+  },
+  translator: {
+    padding: '5px',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+  },
+  button: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  },
+  buttonText: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+  },
 };
 
 const Header = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
   const [showLanguage, setShowLanguage] = useState(false);
   const [showLoginCard, setShowLoginCard] = useState(false);
   const navigate = useNavigate();
 
-  const handleDropdownToggle = (menu) => {
-    setActiveDropdown((prev) => (prev === menu ? null : menu));
+  const handleHover = (e, scale) => {
+    const img = e.currentTarget.querySelector('img');
+    if (img) img.style.transform = scale;
   };
 
   return (
-    <header className="navbar">
-      <div className="logo-container">
-        <img src={`${process.env.PUBLIC_URL}/logo512.png`} alt="Logo" className="logo" />
-        <span className="logo-text">ATONIXCORP</span>
+    <header style={styles.navbar}>
+      <div style={styles.logoContainer}>
+        <button
+          style={styles.logoButton}
+          onMouseEnter={(e) => handleHover(e, 'scale(1.05)')}
+          onMouseLeave={(e) => handleHover(e, 'scale(1.0)')}
+          onFocus={(e) => handleHover(e, 'scale(1.05)')}
+          onBlur={(e) => handleHover(e, 'scale(1.0)')}
+          onClick={() => navigate('/')}
+        >
+          <img src={logo} alt="Logo" style={styles.logo} />
+        </button>
+        <span style={styles.logoText}>ATONIXCORP</span>
       </div>
 
-      <nav className="nav">
-        {Object.entries(dropdownData).map(([key, options]) => (
-          <DropdownMenu
-            key={key}
-            label={key.charAt(0).toUpperCase() + key.slice(1)}
-            options={options}
-            isOpen={activeDropdown === key}
-            onToggle={() => handleDropdownToggle(key)}
-            navigate={navigate}
-          />
+      <nav style={styles.nav}>
+        {['/',  '/Industry', '/Resources', '/atons&Innovation', '/Cybersecurity', '/developers', '/Community', '/products'].map((path, index) => (
+          <button
+            key={path}
+            onClick={() => navigate(path)}
+            style={styles.navLink}
+          >
+            {['Home', 'Industry', 'Resources', 'atons&Innovation', 'Cybersecurity', 'Developers', 'Community', 'Products'][index]}
+          </button>
         ))}
       </nav>
 
-      <div className="icon-container">
-        <FontAwesomeIcon icon={faSearch} className="icon" onClick={() => {
-          setShowSearch(!showSearch);
-          setShowLanguage(false);
-        }} />
-        {showSearch && <input type="text" className="search-bar" placeholder="Search..." />}
-
-        <FontAwesomeIcon icon={faGlobe} className="icon" onClick={() => {
-          setShowLanguage(!showLanguage);
-          setShowSearch(false);
-        }} />
+      <div style={styles.iconContainer}>
+        <FontAwesomeIcon
+          icon={faSearch}
+          style={styles.icon}
+          onClick={() => {
+            setShowSearch(!showSearch);
+            setShowLanguage(false);
+          }}
+        />
+        {showSearch && (
+          <input type="text" style={styles.searchBar} placeholder="Search..." />
+        )}
+        <FontAwesomeIcon
+          icon={faGlobe}
+          style={styles.icon}
+          onClick={() => {
+            setShowLanguage(!showLanguage);
+            setShowSearch(false);
+          }}
+        />
         {showLanguage && (
-          <select className="translator">
+          <select style={styles.translator}>
             <option value="en">English</option>
             <option value="es">Spanish</option>
             <option value="fr">French</option>
@@ -81,11 +164,16 @@ const Header = () => {
         )}
       </div>
 
-      <button className="cta-button" onClick={() => setShowLoginCard(true)}>
-        <span className="cta-text">Log In To Hub</span>
+      <button style={styles.button} onClick={() => setShowLoginCard(true)}>
+        <span style={styles.buttonText}>Log In To Hub</span>
       </button>
 
-      {showLoginCard && <LoginWelcomeCard show={showLoginCard} handleClose={() => setShowLoginCard(false)} />}
+      {showLoginCard && (
+        <LoginWelcomeCard
+          show={showLoginCard}
+          handleClose={() => setShowLoginCard(false)}
+        />
+      )}
     </header>
   );
 };

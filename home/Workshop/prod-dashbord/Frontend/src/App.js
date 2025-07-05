@@ -22,6 +22,7 @@ import Company from './components/assets/Company';
 import SignIn from './components/account/SignIn';
 import SignUp from './components/account/SignUp';
 import ContactUs from './components/account/ContactUs';
+import LastFooter from './components/assets/Lastfooter';
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
         </main>
 
         <Footer />
-        <Topheader />
+        <LastFooter />
       </div>
     </Router>
   );

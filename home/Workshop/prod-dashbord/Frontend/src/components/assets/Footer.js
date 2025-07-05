@@ -1,128 +1,103 @@
 import React from 'react';
-import 'react-phone-input-2/lib/style.css';
-
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import '../account/ContactUs';
-import './Footer.css';
-import {
-  faLinkedin,
-  faGithub,
-  faTwitter,
-  faGitlab,
-} from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <footer className="footer py-5">
-        <div className="container">
-          <div className="row justify-content-between">
-            <div className="col-6 col-md-2 mb-3">
-              <h5>Home</h5>
-              <ul className="nav flex-column">
-                <li className="nav-item mb-2"><Link to="/about-us" className="nav-link p-0">About Us</Link></li>
-                <li className="nav-item mb-2"><Link to="/contact-us" className="nav-link p-0">Contact Us</Link></li>
-                <li className="nav-item mb-2"><Link to="/community" className="nav-link p-0">Community</Link></li>
-                <li className="nav-item mb-2"><Link to="/faqs" className="nav-link p-0">FAQs</Link></li>
-                <li className="nav-item mb-2"><Link to="/services" className="nav-link p-0">Services</Link></li>
-              </ul>
-            </div>
+    <footer
+  className="text-white pt-4 pb-3 border-top border-secondary"
+  style={{ backgroundColor: '#003153' }}
 
-            <div className="col-6 col-md-2 mb-3">
-              <h5>Company</h5>
-              <ul className="nav flex-column">
-                <li className="nav-item mb-2"><Link to="/services" className="nav-link p-0">Services</Link></li>
-                <li className="nav-item mb-2"><Link to="/solutions" className="nav-link p-0">Solutions</Link></li>
-                <li className="nav-item mb-2"><Link to="/about-us" className="nav-link p-0">About Us</Link></li>
-                <li className="nav-item mb-2"><Link to="/careers" className="nav-link p-0">Careers</Link></li>
-                <li className="nav-item mb-2"><Link to="/contact-us" className="nav-link p-0">Contact Us</Link></li>
-              </ul>
-            </div>
+>
+      <div className="container px-4">
+        <div className="row row-cols-1 row-cols-md-6 g-4">
 
-            <div className="col-6 col-md-2 mb-3">
-              <h5>Blog/News</h5>
-              <ul className="nav flex-column">
-                <li className="nav-item mb-2"><Link to="/nvidia" className="nav-link p-0">Nvidia</Link></li>
-                <li className="nav-item mb-2"><Link to="/ubuntu" className="nav-link p-0">Ubuntu</Link></li>
-                <li className="nav-item mb-2"><Link to="/hackernews" className="nav-link p-0">Hackernews</Link></li>
-                <li className="nav-item mb-2"><Link to="/spacex" className="nav-link p-0">SpaceX</Link></li>
-                <li className="nav-item mb-2"><Link to="/nasa" className="nav-link p-0">Nasa</Link></li>
-              </ul>
-            </div>
+          <div className="col">
+  <h5 className="text-uppercase fw-bold text-white">AtonixCorp</h5>
+  <p className="small mb-0 text-white">
+    Building intelligent infrastructure for the future. We specialize in scalable systems, secure platforms, and seamless integration.
+  </p>
+</div>
 
-            <div className="col-6 col-md-2 mb-3">
-              <h5>ContactUs</h5>
-              <ul className="nav flex-column">
-                <li className="nav-item mb-2">
-                  <a href="mailto:support@atonixcorp.atlassian.net" className="nav-link p-0">Email Us</a>
-                </li>
-                <li className="nav-item mb-2">
-                  <a
-                    href="https://atonixcorp.atlassian.net/servicedesk/customer/portal/3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link p-0"
-                  >
-                    Help Center
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {/* Navigation */}
+          <div className="col">
+            <h6 className="text-uppercase fw-semibold">Navigation</h6>
+            <ul className="list-unstyled small">
+              <li><Link to="/about-us" className="text-white text-decoration-none">About Us</Link></li>
+              <li><Link to="/services" className="text-white text-decoration-none">Services</Link></li>
+              <li><Link to="/solutions" className="text-white text-decoration-none">Solutions</Link></li>
+              <li><Link to="/faqs" className="text-white text-decoration-none">FAQs</Link></li>
+              <li><Link to="/contact-us" className="text-white text-decoration-none">Contact</Link></li>
+            </ul>
           </div>
 
-          <div className="row align-items-center mt-4 newsletter-social-row">
-            <div className="col-md-6 mb-3">
-              <h5>Subscribe to our newsletter</h5>
-              <form className="d-flex">
-                <input
-                  id="newsletter1"
-                  type="text"
-                  className="form-control"
-                  placeholder="Email address"
-                />
-                <button className="btn btn-primary ms-2" type="button">Subscribe</button>
-              </form>
-            </div>
-            <div className="col-md-6 mb-3">
-              <ul className="list-unstyled d-flex justify-content-center mb-0 social-icons">
-                <li className="ms-3">
-                  <a href="https://www.linkedin.com/company/AtonixCorp/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <FontAwesomeIcon icon={faLinkedin} size="1x" className="fa-icon" />
-                  </a>
-                </li>
-                <li className="ms-3">
-                  <a href="https://github.com/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <FontAwesomeIcon icon={faGithub} size="1x" className="fa-icon" />
-                  </a>
-                </li>
-                <li className="ms-3">
-                  <a href="https://x.com/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                    <FontAwesomeIcon icon={faTwitter} size="1x" className="fa-icon" />
-                  </a>
-                </li>
-                <li className="ms-3">
-                  <a href="https://gitlab.com/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="GitLab">
-                    <FontAwesomeIcon icon={faGitlab} size="1x" className="fa-icon" />
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {/* Industries */}
+          <div className="col">
+            <h6 className="text-uppercase fw-semibold">Industries</h6>
+            <ul className="list-unstyled small">
+              {[
+                { name: "NVIDIA", url: "https://www.nvidia.com" },
+                { name: "TSMC", url: "https://www.tsmc.com" },
+                { name: "Intel", url: "https://www.intel.com" },
+                { name: "Samsung", url: "https://www.samsung.com" },
+                { name: "Broadcom", url: "https://www.broadcom.com" }
+              ].map((item, i) => (
+                <li key={i}><a href={item.url} target="_blank" rel="noopener noreferrer" className="text-white text-decoration-none">{item.name}</a></li>
+              ))}
+            </ul>
           </div>
 
-          <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-            <p>&copy; 2025 AtonixCorp Org. All rights reserved.</p>
-            <div className="d-flex">
-              <Link to="/" className="me-3 text-secondary">Privacy Policy</Link>
-              <Link to="/" className="me-3 text-secondary">Terms and Conditions</Link>
-              <Link to="/" className="text-secondary">Cookie Policy</Link>
-            </div>
+          {/* Resources */}
+          <div className="col">
+            <h6 className="text-uppercase fw-semibold">Resources</h6>
+            <ul className="list-unstyled small">
+              {[
+                { name: "TechCrunch", url: "https://techcrunch.com" },
+                { name: "Wired", url: "https://www.wired.com" },
+                { name: "The Verge", url: "https://www.theverge.com" },
+                { name: "Ars Technica", url: "https://arstechnica.com" },
+                { name: "MIT Tech Review", url: "https://www.technologyreview.com" }
+              ].map((item, i) => (
+                <li key={i}><a href={item.url} target="_blank" rel="noopener noreferrer" className="text-white text-decoration-none">{item.name}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Space & Defense */}
+          <div className="col">
+            <h6 className="text-uppercase fw-semibold">Space & Defense</h6>
+            <ul className="list-unstyled small">
+              {[
+                { name: "SpaceX", url: "https://www.spacex.com" },
+                { name: "Blue Origin", url: "https://www.blueorigin.com" },
+                { name: "Rocket Lab", url: "https://www.rocketlabusa.com" },
+                { name: "Lockheed Martin", url: "https://www.lockheedmartin.com" },
+                { name: "Northrop Grumman", url: "https://www.northropgrumman.com" }
+              ].map((item, i) => (
+                <li key={i}><a href={item.url} target="_blank" rel="noopener noreferrer" className="text-white text-decoration-none">{item.name}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Big Data & Research */}
+          <div className="col">
+            <h6 className="text-uppercase fw-semibold">Big Data & Research</h6>
+            <ul className="list-unstyled small">
+              {[
+                { name: "Databricks", url: "https://www.databricks.com" },
+                { name: "Palantir", url: "https://www.palantir.com" },
+                { name: "Boston Dynamics", url: "https://www.bostondynamics.com" },
+                { name: "DeepMind", url: "https://www.deepmind.com" },
+                { name: "OpenAI", url: "https://www.openai.com" }
+              ].map((item, i) => (
+                <li key={i}><a href={item.url} target="_blank" rel="noopener noreferrer" className="text-white text-decoration-none">{item.name}</a></li>
+              ))}
+            </ul>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 };
 

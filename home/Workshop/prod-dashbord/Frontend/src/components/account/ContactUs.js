@@ -1,16 +1,83 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import './ContactUs.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import axios from 'axios';
+
+const styles = {
+  container: {
+    maxWidth: '600px',
+    margin: '0 auto',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    backgroundColor: '#f9f9f9',
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+    fontFamily: 'Arial, sans-serif',
+  },
+  heading: {
+    marginBottom: '15px',
+  },
+  paragraph: {
+    marginBottom: '20px',
+  },
+  formGroup: {
+    marginBottom: '15px',
+    textAlign: 'left',
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    fontSize: '16px',
+    boxSizing: 'border-box',
+  },
+  inputFocus: {
+    borderColor: '#007bff',
+    outline: 'none',
+    boxShadow: '0 0 5px rgba(0, 123, 255, 0.5)',
+  },
+  phoneGroup: {
+    display: 'flex',
+  },
+  textarea: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    fontSize: '16px',
+    boxSizing: 'border-box',
+    resize: 'vertical',
+  },
+  button: {
+    display: 'inline-block',
+    padding: '10px 15px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  },
+  buttonHover: {
+    backgroundColor: '#0056b3',
+  },
+  successText: {
+    color: 'green',
+    marginTop: '15px',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: '15px',
+  },
+};
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    country: '',
     phoneNumber: '',
     service: '',
     note: '',
@@ -32,18 +99,9 @@ const ContactUs = () => {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      // Replace with your actual API endpoint
-      const response = await axios.post('/api/contact', formData);
-      console.log('Contact form submitted:', response.data);
+      await axios.post('/api/contact', formData);
       setStatus({ loading: false, success: 'Message sent successfully!', error: null });
-      setFormData({
-        name: '',
-        email: '',
-        country: '',
-        phoneNumber: '',
-        service: '',
-        note: '',
-      });
+      setFormData({ name: '', email: '', phoneNumber: '', service: '', note: '' });
     } catch (error) {
       setStatus({
         loading: false,
@@ -54,38 +112,38 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="contact-us text-center my-5">
-      <h3>Contact Us</h3>
-      <p>
-        We&apos;d love to hear from you! Whether you have a question about
-        features, trials, pricing, need a demo, or anything else, our team is
-        ready to answer all your questions.
+    <section style={styles.container}>
+      <h3 style={styles.heading}>Contact Us</h3>
+      <p style={styles.paragraph}>
+        We&apos;d love to hear from you! Whether you have a question about features, trials, pricing, or anything else, our team is ready to help.
       </p>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <form onSubmit={handleSubmit}>
+        <div style={styles.formGroup}>
           <input
             type="text"
-            className="form-control"
             placeholder="Your Name"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
             required
+            style={styles.input}
           />
         </div>
-        <div className="form-group">
+
+        <div style={styles.formGroup}>
           <input
             type="email"
-            className="form-control"
             placeholder="Your Email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
             required
+            style={styles.input}
           />
         </div>
-        <div className="form-group phone-group">
+
+        <div style={styles.formGroup}>
           <PhoneInput
             country={'us'}
             value={formData.phoneNumber}
@@ -95,16 +153,17 @@ const ContactUs = () => {
               required: true,
               autoFocus: false,
             }}
-            containerClass="form-control"
+            inputStyle={{ ...styles.input }}
           />
         </div>
-        <div className="form-group">
+
+        <div style={styles.formGroup}>
           <select
-            className="form-control"
             name="service"
             value={formData.service}
             onChange={handleInputChange}
             required
+            style={styles.input}
           >
             <option value="">Select a Service</option>
             <option value="service1">Data Service</option>
@@ -112,24 +171,26 @@ const ContactUs = () => {
             <option value="service3">Security Experts</option>
           </select>
         </div>
-        <div className="form-group">
+
+        <div style={styles.formGroup}>
           <textarea
-            className="form-control"
             placeholder="Short Note"
             rows="4"
             name="note"
             value={formData.note}
             onChange={handleInputChange}
             required
+            style={styles.textarea}
           ></textarea>
         </div>
-        <button type="submit" className="btn" disabled={status.loading}>
+
+        <button type="submit" style={styles.button} disabled={status.loading}>
           {status.loading ? 'Sending...' : 'Submit'}
         </button>
       </form>
 
-      {status.success && <p className="text-success mt-3">{status.success}</p>}
-      {status.error && <p className="text-danger mt-3">{status.error}</p>}
+      {status.success && <p style={styles.successText}>{status.success}</p>}
+      {status.error && <p style={styles.errorText}>{status.error}</p>}
     </section>
   );
 };
