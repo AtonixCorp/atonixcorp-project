@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
-=======
->>>>>>> refs/remotes/origin/main
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const styles = {
@@ -43,23 +40,15 @@ const styles = {
     textDecoration: 'underline',
     fontWeight: '600',
     cursor: 'pointer',
-<<<<<<< HEAD
   },
 };
 
 const SignIn = ({ toggleSignUp }) => {
-=======
-  }
-};
-
-const SignIn = ({ show, onClose, toggleSignUp }) => {
->>>>>>> refs/remotes/origin/main
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-<<<<<<< HEAD
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,13 +58,6 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
   const handleClose = () => {
     navigate('/'); // 👈 Return to homepage or any default screen
   };
-=======
-  useEffect(() => {
-    if (show) {
-      window.scrollTo(0, 0);
-    }
-  }, [show]);
->>>>>>> refs/remotes/origin/main
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -98,13 +80,8 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
     try {
       const response = await axios.post('/api/login', formData);
       console.log('Login success:', response.data);
-<<<<<<< HEAD
       // TODO: handle auth/token
       handleClose(); // ✅ Close after login
-=======
-      // TODO: handle redirect or token storage
-      onClose();
->>>>>>> refs/remotes/origin/main
     } catch (error) {
       const msg = error.response?.data?.message || 'Login failed. Please try again.';
       setServerError(msg);
@@ -115,19 +92,11 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
 
   const handleSocialSignIn = (provider) => {
     console.log(`Sign in with ${provider}`);
-<<<<<<< HEAD
     // TODO: Add provider auth
   };
 
   return (
     <Modal show={true} onHide={handleClose} centered>
-=======
-    // TODO: social auth logic
-  };
-
-  return (
-    <Modal show={show} onHide={onClose} centered>
->>>>>>> refs/remotes/origin/main
       <Modal.Header closeButton>
         <Modal.Title>Sign In to AtonixCorp</Modal.Title>
       </Modal.Header>
@@ -193,11 +162,6 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
 };
 
 SignIn.propTypes = {
-<<<<<<< HEAD
-=======
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
->>>>>>> refs/remotes/origin/main
   toggleSignUp: PropTypes.func.isRequired,
 };
 
