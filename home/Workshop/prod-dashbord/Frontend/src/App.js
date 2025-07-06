@@ -5,22 +5,19 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './utils/analytics';
 
-
-import Header from './components/assets/Header';
-import Footer from './components/assets/Footer';
-import Herosection from './components/Custom/Herosection';
 import Topheader from './components/assets/Topheader';
-
-
+import Header from './components/assets/Header';
+import SignIn from './components/account/SignIn';
+import SignUp from './components/account/SignUp';
+import ContactUs from './components/account/ContactUs';
+import Herosection from './components/Custom/Herosection';
 import HomePage from './components/assets/HomePage';
 import AboutUs from './components/assets/AboutUs';
 import Developments from './components/assets/Developments';
 import Community from './components/assets/Community';
 import Support from './components/assets/Support';
 import Company from './components/assets/Company';
-import SignIn from './components/account/SignIn';
-import SignUp from './components/account/SignUp';
-import ContactUs from './components/account/ContactUs';
+import Footer from './components/assets/Footer';
 import LastFooter from './components/assets/Lastfooter';
 
 function App() {
@@ -35,6 +32,9 @@ function App() {
           <div className="content container py-4">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/developments/project1" element={<Developments />} />
@@ -45,9 +45,7 @@ function App() {
                 <Route path="/support/contact" element={<Support />} />
                 <Route path="/company/about" element={<Company />} />
                 <Route path="/company/careers" element={<Company />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/contactus" element={<ContactUs />} />
+                <Route path="/company/privacy" element={<Company />} />
               </Routes>
             </Suspense>
           </div>

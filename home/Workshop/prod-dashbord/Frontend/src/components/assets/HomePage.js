@@ -6,9 +6,9 @@ const HomePage = () => {
     <Container fluid className="bg-light py-5">
       <Row className="justify-content-center text-center mb-5">
         <Col xl={10}>
-          <h1 className="display-4 fw-bold">AtonixCorp</h1>
+          <h1 className="display-4 fw-bold">DATA DRIVEN INNOVATION</h1>
           <p className="lead">
-            At AtonixCorp, we don&apos;t just build technology—we shape transformative ideas into bold, real-world systems. From scalable cloud infrastructure to socially impactful innovation, our focus is building a future where Africa leads in tech and collaboration.
+            AtonixCorp delivers real-time, AI-powered insights that drive mission-critical decisions across industries—from modern infrastructure and cybersecurity to enterprise intelligence and innovation ecosystems.
           </p>
         </Col>
       </Row>

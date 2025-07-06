@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './logo512.png';
 
 const navLinks = [
-  { label: 'About Us', path: '/AboutUs' },
   { label: 'Home', path: '/' },
+  { label: 'About Us', path: '/AboutUs' },
   { label: 'Resources', path: '/Resources' },
-  { label: 'atons&Innovation', path: '/atons&Innovation' },
+  { label: 'atons & Innovation', path: '/atons&Innovation' },
   { label: 'Cybersecurity', path: '/Cybersecurity' },
   { label: 'Developers', path: '/Developers' },
   { label: 'Community', path: '/community' },
@@ -24,60 +24,64 @@ const styles = {
     padding: '10px 20px',
     color: '#003153',
     flexWrap: 'wrap',
-    overflowX: 'hidden',
     boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
   },
   logoContainer: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    marginRight: 'auto',
-    padding: '10px 0',
   },
   logoButton: {
     all: 'unset',
+    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    cursor: 'pointer',
   },
   logo: {
     height: '40px',
     borderRadius: '50%',
-    objectFit: 'contain',
     transition: 'transform 0.3s ease',
   },
   logoText: {
-    fontFamily: 'Playfair Display, Georgia, serif',
     fontSize: '1.8rem',
-    fontWeight: 500,
+    fontWeight: 600,
+    fontFamily: 'Playfair Display, Georgia, serif',
     color: '#003153',
-    letterSpacing: '1px',
   },
   nav: {
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
-    marginLeft: '20px',
   },
   navLink: {
-    color: '#003153',
     fontSize: '1rem',
     fontWeight: 500,
-    background: 'none',
-    border: 'none',
-    padding: '0',
-    cursor: 'pointer',
+    color: '#003153',
     textDecoration: 'none',
-    transition: 'color 0.3s ease',
+    padding: '5px 10px',
+    borderRadius: '4px',
+    transition: 'color 0.3s ease, background-color 0.3s ease',
+    cursor: 'pointer',
+  },
+  activeLink: {
+    color: '#0d9494',
+    fontWeight: 700,
+    backgroundColor: '#e6f4f4',
   },
   icon: {
+    fontSize: '1.5rem',
     cursor: 'pointer',
-    fontSize: '1.2rem',
     color: '#003153',
   },
   mobileMenu: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    width: '100%',
     padding: '10px 0',
   },
 };
@@ -87,14 +91,18 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
-  const handleHover = (e, scale) => {
-    const img = e.currentTarget.querySelector('img');
-    if (img) img.style.transform = scale;
+  const handleNavigate = (path) => {
+    navigate(path);
+    setShowMobileMenu(false);
   };
 
-  // Scroll to top on page change
+  const getLinkStyle = (path) => ({
+    ...styles.navLink,
+    ...(location.pathname === path ? styles.activeLink : {}),
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -106,22 +114,30 @@ const Header = () => {
         <span style={styles.logoText}>AtonixCorp</span>
         <button
           style={styles.logoButton}
-          onMouseEnter={(e) => handleHover(e, 'scale(1.05)')}
-          onMouseLeave={(e) => handleHover(e, 'scale(1.0)')}
-          onClick={() => navigate('/')}
+          onClick={() => handleNavigate('/')}
+          onMouseEnter={(e) => { e.currentTarget.querySelector('img').style.transform = 'scale(1.1)'; }}
+          onMouseLeave={(e) => { e.currentTarget.querySelector('img').style.transform = 'scale(1)'; }}
         >
           <img src={logo} alt="Logo" style={styles.logo} />
         </button>
       </div>
 
-      {/* Navigation */}
+      {/* Links */}
       {isMobile ? (
         <>
-          <FontAwesomeIcon icon={faBars} style={styles.icon} onClick={() => setShowMobileMenu(!showMobileMenu)} />
+          <FontAwesomeIcon
+            icon={faBars}
+            style={styles.icon}
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+          />
           {showMobileMenu && (
             <div style={styles.mobileMenu}>
               {navLinks.map(({ label, path }) => (
-                <button key={path} onClick={() => navigate(path)} style={styles.navLink}>
+                <button
+                  key={path}
+                  onClick={() => handleNavigate(path)}
+                  style={getLinkStyle(path)}
+                >
                   {label}
                 </button>
               ))}
@@ -131,7 +147,11 @@ const Header = () => {
       ) : (
         <nav style={styles.nav}>
           {navLinks.map(({ label, path }) => (
-            <button key={path} onClick={() => navigate(path)} style={styles.navLink}>
+            <button
+              key={path}
+              onClick={() => handleNavigate(path)}
+              style={getLinkStyle(path)}
+            >
               {label}
             </button>
           ))}
