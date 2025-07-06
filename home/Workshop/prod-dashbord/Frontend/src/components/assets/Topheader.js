@@ -66,6 +66,10 @@ const styles = {
     fontWeight: 'bold',
     fontSize: '0.875rem',
   },
+  buttonGroup: {
+    display: 'flex',
+    gap: '8px',
+  },
 };
 
 const TopHeader = () => {
@@ -146,10 +150,12 @@ const TopHeader = () => {
           )}
         </div>
 
-        {/* Login Button */}
-        <button style={styles.button} onClick={() => setShowLoginCard(true)}>
-          Log In To Hub
-        </button>
+        {/* Action Button */}
+        <div style={styles.buttonGroup}>
+          <button style={styles.button} onClick={() => setShowLoginCard(true)}>
+            Log In To Hub
+          </button>
+        </div>
 
         {/* Modal Component */}
         {showLoginCard && (

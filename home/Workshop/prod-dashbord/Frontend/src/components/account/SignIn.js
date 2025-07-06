@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { SocialIcon } from 'react-social-icons';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const styles = {
@@ -39,20 +40,24 @@ const styles = {
     textDecoration: 'underline',
     fontWeight: '600',
     cursor: 'pointer',
-  }
+  },
 };
 
-const SignIn = ({ show, onClose, toggleSignUp }) => {
+const SignIn = ({ toggleSignUp }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if (show) {
-      window.scrollTo(0, 0);
-    }
-  }, [show]);
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleClose = () => {
+    navigate('/'); // 👈 Return to homepage or any default screen
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -75,8 +80,8 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
     try {
       const response = await axios.post('/api/login', formData);
       console.log('Login success:', response.data);
-      // TODO: handle redirect or token storage
-      onClose();
+      // TODO: handle auth/token
+      handleClose(); // ✅ Close after login
     } catch (error) {
       const msg = error.response?.data?.message || 'Login failed. Please try again.';
       setServerError(msg);
@@ -87,11 +92,11 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
 
   const handleSocialSignIn = (provider) => {
     console.log(`Sign in with ${provider}`);
-    // TODO: social auth logic
+    // TODO: Add provider auth
   };
 
   return (
-    <Modal show={show} onHide={onClose} centered>
+    <Modal show={true} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Sign In to AtonixCorp</Modal.Title>
       </Modal.Header>
@@ -157,8 +162,6 @@ const SignIn = ({ show, onClose, toggleSignUp }) => {
 };
 
 SignIn.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
   toggleSignUp: PropTypes.func.isRequired,
 };
 
