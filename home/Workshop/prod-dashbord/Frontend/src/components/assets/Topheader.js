@@ -1,22 +1,86 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import {
-  faLinkedin,
   faGithub,
   faTwitter,
-  faGitlab
+  faLinkedin,
+  faGitlab,
 } from '@fortawesome/free-brands-svg-icons';
+import LoginWelcomeCard from '../Cards/LoginWelcomeCard';
+
+const styles = {
+  header: {
+    backgroundColor: '#212529',
+    color: 'white',
+    fontSize: '0.875rem',
+    padding: '8px 0',
+  },
+  container: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 16px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '12px',
+  },
+  iconLink: {
+    color: 'white',
+    marginRight: '12px',
+    textDecoration: 'none',
+    fontSize: '1rem',
+  },
+  middleIcons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  icon: {
+    cursor: 'pointer',
+    fontSize: '1rem',
+    color: 'white',
+  },
+  searchBar: {
+    padding: '4px 8px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    background: 'white',
+    color: '#212529',
+  },
+  translator: {
+    padding: '4px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    background: 'white',
+    color: '#212529',
+  },
+  button: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '8px 16px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: '0.875rem',
+  },
+};
 
 const TopHeader = () => {
+  const [showLoginCard, setShowLoginCard] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showLanguage, setShowLanguage] = useState(false);
+
   return (
-    <div className="top-header bg-dark text-white py-2 small">
-      <div className="container d-flex flex-wrap justify-content-between align-items-center">
+    <div style={styles.header}>
+      <div style={styles.container}>
         {/* Social Icons */}
-        <div className="d-flex align-items-center">
+        <nav aria-label="AtonixCorp social links" style={{ display: 'flex', alignItems: 'center' }}>
           <a
             href="https://www.linkedin.com/company/atonixcorp/"
-            className="text-white me-3"
+            style={styles.iconLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -25,7 +89,7 @@ const TopHeader = () => {
           </a>
           <a
             href="https://github.com/atonixcorp"
-            className="text-white me-3"
+            style={styles.iconLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -34,7 +98,7 @@ const TopHeader = () => {
           </a>
           <a
             href="https://x.com/atonixcorp"
-            className="text-white me-3"
+            style={styles.iconLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Twitter"
@@ -43,30 +107,54 @@ const TopHeader = () => {
           </a>
           <a
             href="https://gitlab.com/atonixcorp"
-            className="text-white"
+            style={styles.iconLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitLab"
           >
             <FontAwesomeIcon icon={faGitlab} />
           </a>
+        </nav>
+
+        {/* Center Icons */}
+        <div style={styles.middleIcons}>
+          <FontAwesomeIcon
+            icon={faSearch}
+            style={styles.icon}
+            onClick={() => {
+              setShowSearch(!showSearch);
+              setShowLanguage(false);
+            }}
+          />
+          {showSearch && <input type="text" style={styles.searchBar} placeholder="Search..." />}
+
+          <FontAwesomeIcon
+            icon={faGlobe}
+            style={styles.icon}
+            onClick={() => {
+              setShowLanguage(!showLanguage);
+              setShowSearch(false);
+            }}
+          />
+          {showLanguage && (
+            <select style={styles.translator}>
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+            </select>
+          )}
         </div>
 
-        {/* Utility Links */}
-        <div className="d-flex align-items-center">
-          <Link to="/about-us" className="nav-link text-white px-2">
-            About
-          </Link>
-          <Link to="/contactus" className="nav-link text-white px-2">
-            Contact
-          </Link>
-          <Link to="/signup" className="nav-link text-white px-2">
-            Sign Up
-          </Link>
-          <Link to="/signin" className="nav-link text-white px-2">
-            Sign In
-          </Link>
-        </div>
+        {/* Login Button */}
+        <button style={styles.button} onClick={() => setShowLoginCard(true)}>
+          Log In To Hub
+        </button>
+
+        {/* Modal Component */}
+        {showLoginCard && (
+          <LoginWelcomeCard show={showLoginCard} handleClose={() => setShowLoginCard(false)} />
+        )}
       </div>
     </div>
   );

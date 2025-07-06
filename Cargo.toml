@@ -4,6 +4,6 @@ members = [
     "services/auth",
     "services/mail",
     "libs/config",
-    "dashboard/VertexOps",
-    "dashboard/PixelFlow",
+    "dashboard/Backend",
+    "dashboard/Frontend",
 ]

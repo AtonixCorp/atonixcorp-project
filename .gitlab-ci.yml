@@ -18,7 +18,7 @@ default:
 variables:
   IMAGE_NAME: ofidohubvm/docker-build-cloud-demo
 
-# Build multi-platform image and push to a registry
+
 build_push:
   stage: build
   script:
@@ -28,7 +28,7 @@ build_push:
         --tag "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}" \
         --push .
 
-# Build an image and discard the result
+
 build_cache:
   stage: build
   script:
