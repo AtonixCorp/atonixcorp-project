@@ -150,14 +150,14 @@ const TopHeader = () => {
           )}
         </div>
 
-        {/* Action Button */}
+      
         <div style={styles.buttonGroup}>
           <button style={styles.button} onClick={() => setShowLoginCard(true)}>
             Log In To Hub
           </button>
         </div>
 
-        {/* Modal Component */}
+    
         {showLoginCard && (
           <LoginWelcomeCard show={showLoginCard} handleClose={() => setShowLoginCard(false)} />
         )}

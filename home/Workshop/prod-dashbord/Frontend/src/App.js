@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './utils/analytics';
@@ -8,7 +9,6 @@ import Topheader from './components/assets/Topheader';
 import Header from './components/assets/Header';
 import SignIn from './components/account/SignIn';
 import SignUp from './components/account/SignUp';
-import ContactUs from './components/account/ContactUs';
 import Herosection from './components/Custom/Herosection';
 import HomePage from './components/assets/HomePage';
 import AboutUs from './components/assets/AboutUs';
@@ -19,38 +19,22 @@ import Company from './components/assets/Company';
 import Footer from './components/assets/Footer';
 import LastFooter from './components/assets/Lastfooter';
 
-const AppContent = () => {
-  const location = useLocation();
-  const isTopLevelPage = ['/signin', '/signup', '/contactus'].includes(location.pathname);
-
+function App() {
   return (
-    <div className="App">
-      <Topheader />
-      <Header />
-
-      {/* Only show hero + homepage when on '/' */}
-      {location.pathname === '/' && <Herosection />}
-
-      {/* Render account pages on top level layout */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/signin" element={<SignIn show={true} onClose={() => {}} toggleSignUp={() => {}} />} />
-          <Route path="/signup" element={<SignUp show={true} onClose={() => {}} toggleSignIn={() => {}} />} />
-          <Route path="/contactus" element={<ContactUs show={true} onClose={() => {}} />} />
-        </Routes>
-      </Suspense>
-
-      {/* Render all other pages inside main layout */}
-      {!isTopLevelPage && (
+    <Router>
+      <div className="App">
+        <Topheader />
+        <Header />
+        <Herosection />
+        <HomePage />
         <main className="main-container">
           <div className="content container py-4">
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about-us" element={<AboutUs />} />
-                <Route path="/about-us/mission" element={<AboutUs />} />
-                <Route path="/contactus" element={<ContactUs />} />
-                <Route path="/developments" element={<Developments />} />
                 <Route path="/developments/project1" element={<Developments />} />
                 <Route path="/developments/project2" element={<Developments />} />
                 <Route path="/community/event1" element={<Community />} />
@@ -64,18 +48,10 @@ const AppContent = () => {
             </Suspense>
           </div>
         </main>
-      )}
 
-      <Footer />
-      <LastFooter />
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <Router>
-      <AppContent />
+        <Footer />
+        <LastFooter />
+      </div>
     </Router>
   );
 }
