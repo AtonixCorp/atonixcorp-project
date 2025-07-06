@@ -26,15 +26,15 @@ jobs:
       - name: Build and Push Pixelflow (React)
         uses: docker/build-push-action@v5
         with:
-          context: ./Workshop/PixelFlow
-          file: ./Workshop/PixelFlow/Dockerfile
+          context: ./home/Workshop/prod-dashbord/Frontend
+          file: ./home/Workshop/prod-dashbord/Frontend/Dockerfile
           push: true
-          tags: ofidohubvm/pixelflow:latest
+          tags: atonixdev/pixelflow:latest
 
       - name: Build and Push VertexOps (Django)
         uses: docker/build-push-action@v5
         with:
-          context: ./Workshop/VertexOps
-          file: ./Workshop/VertexOps/Dockerfile
+          context: ./home/Workshop/prod-dashbord/Backend
+          file: ./home/Workshop/prod-dashbord/Backend/Dockerfile
           push: true
-          tags: ofidohubvm/vertexops:latest
+          tags: atonixdev/vertexops:latest
