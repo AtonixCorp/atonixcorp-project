@@ -40,10 +40,10 @@ const LoginWelcomeCard = ({ show, handleClose }) => {
           <a href="https://www.linkedin.com/in/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <FaLinkedin size={30} />
           </a>
-          <a href="https://github.com/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <a href="https://github.com/AtonixCorp" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <FaGithub size={30} />
           </a>
-          <a href="https://gitlab.com/guxegdsa" target="_blank" rel="noopener noreferrer" aria-label="GitLab">
+          <a href="https://gitlab.com/atonixcorpvm" target="_blank" rel="noopener noreferrer" aria-label="GitLab">
             <FaGitlab size={30} />
           </a>
           <a href="https://slack.com/atonixcorp" target="_blank" rel="noopener noreferrer" aria-label="Slack">

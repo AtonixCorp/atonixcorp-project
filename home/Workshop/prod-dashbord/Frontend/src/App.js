@@ -5,18 +5,17 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './utils/analytics';
 
-// Core Layout Components
+
 import Header from './components/assets/Header';
 import Footer from './components/assets/Footer';
 import Herosection from './components/Custom/Herosection';
 import Topheader from './components/assets/Topheader';
 
-// Page Components
+
 import HomePage from './components/assets/HomePage';
 import AboutUs from './components/assets/AboutUs';
 import Developments from './components/assets/Developments';
 import Community from './components/assets/Community';
-import Products from './components/assets/Products';
 import Support from './components/assets/Support';
 import Company from './components/assets/Company';
 import SignIn from './components/account/SignIn';
@@ -42,7 +41,6 @@ function App() {
                 <Route path="/developments/project2" element={<Developments />} />
                 <Route path="/community/event1" element={<Community />} />
                 <Route path="/community/event2" element={<Community />} />
-                <Route path="/products" element={<Products />} />
                 <Route path="/support/faq" element={<Support />} />
                 <Route path="/support/contact" element={<Support />} />
                 <Route path="/company/about" element={<Company />} />
