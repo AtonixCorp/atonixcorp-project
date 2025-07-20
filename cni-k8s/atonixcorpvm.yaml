@@ -3,4 +3,9 @@ kind: Namespace
 metadata:
   name: atonixcorpvm
   labels:
-    project: atonixcorp
+    project: atonixcorp-project
+    environment: atonixcorpvm
+spec:
+  finalizers:
+  - kubernetes.io/ns-finalizer
+
