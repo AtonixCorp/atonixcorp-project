@@ -1,0 +1,41 @@
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background-color: #f3f4f6;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  min-height: 100vh;
+}
+
+header {
+  grid-area: header;
+  background-color: #1f2937;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #111827;
+  color: #fff;
+  padding: 2rem 1rem;
+}
+
+main {
+  grid-area: main;
+  padding: 2rem;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

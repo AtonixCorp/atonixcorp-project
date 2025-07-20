@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Service Monitor Dashboard</title>
+  <link rel="stylesheet" href="/static/css/dashboard.css" />
+</head>
+<body>
+  <header>
+    <h1>🛠️ Atonis Corp Service Monitor</h1>
+    <p>Welcome, Operator</p>
+  </header>
+
+  <nav class="sidebar">
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Metrics</a></li>
+      <li><a href="#">Logs</a></li>
+      <li><a href="#">Status</a></li>
+      <li><a href="#">Restart</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="status">
+      <h2>🟢 Service Health Overview</h2>
+      <div id="service-status">Loading service status...</div>
+    </section>
+
+    <section class="metrics">
+      <h2>📊 Metrics</h2>
+      <canvas id="cpuChart"></canvas>
+    </section>
+
+    <section class="actions">
+      <h2>🔧 Service Actions</h2>
+      <button onclick="restartService()">Restart Service</button>
+      <button onclick="stopService()">Stop Service</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Atonis Corp. All rights reserved.</p>
+  </footer>
+
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
