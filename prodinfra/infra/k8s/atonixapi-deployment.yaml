@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atonixcorp-backend
+  namespace: atonixcorpvm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atonixcorp-backend
+  template:
+    metadata:
+      labels:
+        app: atonixcorp-backend
+    spec:
+      serviceAccountName: atonixcorp-builder
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: backend
+          image: atonixdev/atonixapi:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ATONIX_ENV
+              value: "production"
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: API_PORT
+              value: "8000"

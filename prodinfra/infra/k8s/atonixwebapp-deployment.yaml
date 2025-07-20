@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atonixcorp-frontend
+  namespace: atonixcorpvm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atonixcorp-frontend
+  template:
+    metadata:
+      labels:
+        app: atonixcorp-frontend
+    spec:
+      serviceAccountName: atonixcorp-builder
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: frontend
+          image: atonixdev/atonixwebapp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ATONIX_ENV
+              value: "production"
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: REACT_APP_API_URL
+              value: "https://atonixcorp.org/api/v1"
+            - name: REACT_APP_AUTH_URL
+              value: "https://atonixcorp.org/auth"
+            - name: REACT_APP_WEBSOCKET_URL
+              value: "wss://atonixcorp.org/ws"
+            - name: REACT_APP_FRONTEND_PORT
+              value: "3000"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

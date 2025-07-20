@@ -1,0 +1,12 @@
+apiVersion: dashboard.atonixcorp.org/v1alpha1
+kind: AtonixDashboard
+metadata:
+  labels:
+    app.kubernetes.io/name: atonixdashboard
+    app.kubernetes.io/instance: atonixdashboard-sample
+    app.kubernetes.io/part-of: atonixcorp-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: atonixcorp-operator
+  name: atonixdashboard-sample
+spec:
+  # TODO(user): Add fields here
