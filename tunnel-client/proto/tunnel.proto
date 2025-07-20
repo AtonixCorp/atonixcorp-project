@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto;
+
+// Tell protoc how to form Go imports:
+//   <module-path>/proto;proto    =>  import "github.com/atonixdev/tunnel-client/proto"
+option go_package = "github.com/atonixdev/tunnel-client/proto;proto";
+
+message TunnelPacket {
+  enum Type {
+    HELLO = 0;
+    OPEN  = 1;
+    DATA  = 2;
+    CLOSE = 3;
+  }
+  Type    type     = 1;
+  string  tunnelId = 2;
+  string  streamId = 3;
+  bytes   payload  = 4;
+}
+
+service TunnelService {
+  rpc Connect(stream TunnelPacket) returns (stream TunnelPacket);
+}
