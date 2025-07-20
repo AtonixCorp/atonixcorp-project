@@ -1,5 +1,5 @@
 
-
+cryptography
 django>=3.2,<4.0
 djangorestframework
 djangorestframework-simplejwt
@@ -42,5 +42,4 @@ django-guardian
 whitenoise  
 django-health-check 
 django-ratelimit
- dj-database-url
- cryptography
+dj-database-url
