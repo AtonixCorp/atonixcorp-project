@@ -1,0 +1,12 @@
+apiVersion: cache.atonixcorp.org/v1alpha1
+kind: AtonixCorp
+metadata:
+  labels:
+    app.kubernetes.io/name: atonixcorp
+    app.kubernetes.io/instance: atonixcorp-sample
+    app.kubernetes.io/part-of: atonixcorp-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: atonixcorp-operator
+  name: atonixcorp-sample
+spec:
+  # TODO(user): Add fields here

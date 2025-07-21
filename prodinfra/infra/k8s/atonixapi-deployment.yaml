@@ -3,6 +3,18 @@ kind: Deployment
 metadata:
   name: atonixcorp-backend
   namespace: atonixcorpvm
+  labels:
+    app.kubernetes.io/name: atonixcorp-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: production
+    app.kubernetes.io/managed-by: atonixcorp-operator
+    app.kubernetes.io/version: "1.0.0"
+  annotations:
+    telemetry.istio.io/stack: "atonixcorpvm"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9001"
+    prometheus.io/path: "/metrics"
+
 spec:
   replicas: 1
   selector:
@@ -12,6 +24,16 @@ spec:
     metadata:
       labels:
         app: atonixcorp-backend
+        app.kubernetes.io/name: atonixcorp-backend
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/instance: production
+        app.kubernetes.io/managed-by: atonixcorp-operator
+        app.kubernetes.io/version: "1.0.0"
+      annotations:
+        telemetry.istio.io/stack: "atonixcorpvm"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9001"
+        prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: atonixcorp-builder
       tolerations:
@@ -33,3 +55,10 @@ spec:
                   fieldPath: metadata.namespace
             - name: API_PORT
               value: "8000"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

@@ -1,0 +1,31 @@
+# permissions for end users to edit atonixcorps.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: atonixcorp-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: atonixcorp-operator
+    app.kubernetes.io/part-of: atonixcorp-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: atonixcorp-editor-role
+rules:
+- apiGroups:
+  - cache.atonixcorp.org
+  resources:
+  - atonixcorps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cache.atonixcorp.org
+  resources:
+  - atonixcorps/status
+  verbs:
+  - get

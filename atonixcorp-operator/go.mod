@@ -1,4 +1,4 @@
-module github.com/AtonixCorp/atonixcorp-project/app-operator
+module github.com/AtonixCorp/atonixcorp-project/atonixcorp-operator
 
 go 1.20
 

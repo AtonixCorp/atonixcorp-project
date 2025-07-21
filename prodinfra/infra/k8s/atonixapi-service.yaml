@@ -1,8 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: atonixcorp-backend-service
+  name: atonixcorp-backend
   namespace: atonixcorpvm
+  labels:
+    app.kubernetes.io/name: atonixcorp-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: production
+    app.kubernetes.io/managed-by: atonixcorp-operator
+    app.kubernetes.io/version: "1.0.0"
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8000"
+    prometheus.io/path: "/metrics"
 spec:
   selector:
     app: atonixcorp-backend
