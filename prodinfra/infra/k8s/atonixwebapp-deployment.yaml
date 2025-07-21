@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: atonixcorp-frontend
-  namespace: atonixcorpvm
+  namespace: default
   labels:
     app.kubernetes.io/name: atonixcorp-frontend
     app.kubernetes.io/component: frontend
@@ -12,7 +12,7 @@ metadata:
   annotations:
     telemetry.istio.io/stack: "atonixcorpvm"
     prometheus.io/scrape: "true"
-    prometheus.io/port: "3000"
+    prometheus.io/port: "9001"
     prometheus.io/path: "/metrics"
 
 spec:
@@ -32,10 +32,12 @@ spec:
       annotations:
         telemetry.istio.io/stack: "atonixcorpvm"
         prometheus.io/scrape: "true"
-        prometheus.io/port: "3000"
+        prometheus.io/port: "9001"
         prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: atonixcorp-builder
+      imagePullSecrets:
+        - name: regcred
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
@@ -45,7 +47,7 @@ spec:
           image: atonixdev/atonixwebapp:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 3001
           env:
             - name: ATONIX_ENV
               value: "production"
@@ -60,7 +62,7 @@ spec:
             - name: REACT_APP_WEBSOCKET_URL
               value: "wss://atonixcorp.org/ws"
             - name: REACT_APP_FRONTEND_PORT
-              value: "8080"
+              value: "80"
           resources:
             requests:
               memory: "256Mi"

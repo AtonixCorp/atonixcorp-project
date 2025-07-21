@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: atonixcorp-backend
-  namespace: atonixcorpvm
+  namespace: default
   labels:
     app.kubernetes.io/name: atonixcorp-backend
     app.kubernetes.io/component: backend
@@ -36,6 +36,8 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: atonixcorp-builder
+      imagePullSecrets:
+        - name: regcred
       tolerations:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"

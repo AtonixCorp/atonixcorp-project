@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: atonixcorp-frontend
-  namespace: atonixcorpvm
+  namespace: default
   labels:
     app.kubernetes.io/name: atonixcorp-frontend
     app.kubernetes.io/component: frontend
@@ -12,7 +12,7 @@ metadata:
   annotations:
     telemetry.istio.io/stack: "atonixcorp"
     prometheus.io/scrape: "true"
-    prometheus.io/port: "3000"
+    prometheus.io/port: "9001"
     prometheus.io/path: "/metrics"
 spec:
   selector:
@@ -21,5 +21,5 @@ spec:
     - protocol: TCP
       port: 8080
       name: http
-      targetPort: 3000
+      targetPort: 3001
   type: ClusterIP
