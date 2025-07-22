@@ -1,0 +1,13 @@
+
+spec:
+  containers:
+  - name: atonixwebapp
+    image: docker.io/atonixdev/atonixwebapp:latest
+    ports:
+    - containerPort: 3000
+  - name: atonixapi
+    image: docker.io/atonixdev/atonixapi:latest
+    ports:
+    - containerPort: 8000
+  imagePullSecrets:
+  - name: regcred

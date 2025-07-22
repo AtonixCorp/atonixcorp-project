@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-monitoring-agent
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      nodeSelector:
+        role: monitoring
+      containers:
+      - name: agent
+        image: my-monitoring-agent:latest

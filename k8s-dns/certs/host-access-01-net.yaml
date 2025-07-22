@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: host-access-proxy
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: host-access
+  template:
+    metadata:
+      labels:
+        app: host-access
+    spec:
+      hostNetwork: true
+      containers:
+      - name: proxy
+        image: alpine/socat
+        args: ["tcp-listen:8080,fork,reuseaddr", "tcp-connect:127.0.0.1:80"]
+        ports:
+        - containerPort: 8080

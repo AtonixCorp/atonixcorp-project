@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atonixcorpvm
+  template:
+    metadata:
+      labels:
+        app: atonixwebapp
+    spec:
+      containers:
+      - name: atonixcorp-frontend
+        image: atonixwebapp:latest
+        ports:
+        - containerPort: 3000
+      - name: atonixcorp-backend
+        image: atonixapi:latest
+        ports:
+        - containerPort: 8000

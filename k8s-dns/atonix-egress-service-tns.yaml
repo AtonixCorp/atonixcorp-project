@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: atonix-egress-service
+  namespace: default
+  annotations:
+    kube-vip.io/active-endpoint: ""
+    kube-vip.io/active-endpoint-ipv6: fd00:10:244:2::2
+    kube-vip.io/egress: "true"
+    kube-vip.io/egress-ipv6: "true"
+    kube-vip.io/loadbalancerIPs: 172.18.255.250,fc00:f853:ccd:e793:ffff:ffff:ffff:fffa
+    kube-vip.io/vipHost: services-worker2
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    app: atonix-egress-app
+  ports:
+  - port: 80
+    targetPort: 8080

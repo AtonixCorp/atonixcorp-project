@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hello-daemon
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: hello-daemon
+  template:
+    metadata:
+      labels:
+        app: hello-daemon
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["/bin/sh", "-c", "while true; do echo Hello from $(hostname); sleep 10; done"]

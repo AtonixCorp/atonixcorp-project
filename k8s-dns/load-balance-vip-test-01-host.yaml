@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vip-test
+  namespace: default
+  annotations:
+    kube-vip.io/loadbalancerIPs: "172.18.100.25"
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+  - port: 80
+    targetPort: 8080

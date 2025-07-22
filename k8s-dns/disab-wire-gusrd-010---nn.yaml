@@ -1,0 +1,9 @@
+apiVersion: projectcalico.org/v3
+kind: FelixConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  reportingInterval: 0s
+  wireguardEnabled: false
+  wireguardEnabledV6: false  
