@@ -113,7 +113,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@redux-devtools/extension": "^3.3.0",
     "auth0-js": "^9.15.0",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "commander": "^14.0.0",
